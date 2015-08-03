@@ -1,8 +1,8 @@
 <html>
     <head>
         <title>title</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" href="output/all.css"/>
+        <link rel="stylesheet" href="{{ URL::asset('output/all.css') }}"/>
+        
         
     </head>
     <body>
@@ -11,6 +11,6 @@
         </div>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="output/all.js"></script>
+        <script src="{{ URL::asset('output/all.js') }}"></script>
     </body>
 </html>

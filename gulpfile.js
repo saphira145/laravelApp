@@ -15,7 +15,8 @@ elixir(function(mix) {
     mix.sass('app.scss');
     
     mix.styles([
-       'app.css' 
+       'app.css',
+       'bootstrap.min.css'
     ], 'public/output/all.css', 'public/css');
     
     mix.version('public/output/all.css');

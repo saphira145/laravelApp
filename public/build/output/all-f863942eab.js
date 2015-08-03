@@ -2,7 +2,6 @@
 (function() {
     var search = {
         init : function() {
-            this.$search_button = $("#search_button");
             this.bindEvents();
         },
         cacheDom : function() {
