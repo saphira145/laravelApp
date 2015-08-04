@@ -3,11 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/app/gulpfile.js</file>
             <file>file:/C:/xampp/htdocs/app/app/Http/Controllers/StudentsController.php</file>
             <file>file:/C:/xampp/htdocs/app/resources/views/students/_search.blade.php</file>
+            <file>file:/C:/xampp/htdocs/app/resources/views/pagination.blade.php</file>
             <file>file:/C:/xampp/htdocs/app/resources/views/students/index.blade.php</file>
+            <file>file:/C:/xampp/htdocs/app/public/output/all.css</file>
             <file>file:/C:/xampp/htdocs/app/app/Student.php</file>
             <file>file:/C:/xampp/htdocs/app/public/js/js.js</file>
+            <file>file:/C:/xampp/htdocs/app/public/css/app.css</file>
             <file>file:/C:/xampp/htdocs/app/resources/views/app.blade.php</file>
             <file>file:/C:/xampp/htdocs/app/resources/views/students/_list_students.blade.php</file>
             <file>file:/C:/xampp/htdocs/app/app/Http/routes.php</file>

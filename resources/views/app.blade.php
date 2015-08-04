@@ -12,10 +12,11 @@
             <div class="header-top">
                 
             </div>
-            
+            @if (Route::currentRouteName() === 'students.index')
             <div class="search-box">
                 @include('students._search')
             </div>
+            @endif
         </header>
         <div class="container">
             @yield('content')

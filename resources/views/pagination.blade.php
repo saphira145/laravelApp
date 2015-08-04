@@ -13,23 +13,27 @@
 ?>
 
 @if ($lastPage > 1)
-<ul class="pagination">
-    <li>
-        <a href="{{ $paginator->url($firstPage) }}">First</a>
-    </li>
-    <li class="{{ ($currentPage == $firstPage) ? ' disabled' : '' }}">
-        <a href="{{ $previousPageUrl }}">Previous</a>
-    </li>
-    @for ($i = $firstPageShowed; $i <= $lastPageShowed; $i++)
-        <li class="{{ ($currentPage == $i) ? ' active' : '' }}">
-            <a href="{{ $paginator->url($i) }}">{{ $i }}</a>
+<div class="text-right">
+    <ul class="pagination">
+        <li class="first">
+            <a href="{{ $paginator->url($firstPage) }}">First</a>
         </li>
-    @endfor
-    <li class="{{ ($currentPage == $lastPage) ? ' disabled' : '' }}">
-        <a href="{{ $nextPageUrl }}" >Next</a>
-    </li>
-    <li>
-        <a href="{{ $paginator->url($lastPage) }}">Last</a>
-    </li>
-</ul>
+        <li class="{{ ($currentPage == $firstPage) ? ' disabled' : '' }} prev-button">
+            <a href="{{ $previousPageUrl }}">Previous</a>
+        </li>
+        @for ($i = $firstPageShowed; $i <= $lastPageShowed; $i++)
+            <li class="{{ ($currentPage == $i) ? ' active' : '' }}
+                       {{ ($currentPage == $i-1) ? ' next': '' }}
+                       {{ ($currentPage == $i+1) ? ' prev': '' }} ">
+                <a href="{{ $paginator->url($i) }}">{{ $i }}</a>
+            </li>
+        @endfor
+        <li class="{{ ($currentPage == $lastPage) ? ' disabled' : '' }} next-button">
+            <a href="{{ $nextPageUrl }}" >Next</a>
+        </li>
+        <li class="last">
+            <a href="{{ $paginator->url($lastPage) }}">Last</a>
+        </li>
+    </ul>
+    </div>
 @endif

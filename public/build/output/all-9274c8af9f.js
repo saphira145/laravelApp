@@ -32,7 +32,7 @@ $(".search-box").sticky({ topSpacing: 0 });
                     //
                 },
                 beforeSend : function() {
-//                    window.location.href = 'http://localhost/app/public/students';
+                    window.location.href = 'http://localhost/app/public/students/';
                 },
                 success : function(response) {
                     
@@ -48,3 +48,5 @@ $(".search-box").sticky({ topSpacing: 0 });
     }
     search.init();
 })();
+
+//# sourceMappingURL=all.js.map

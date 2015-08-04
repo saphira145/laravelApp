@@ -2,7 +2,10 @@
 // sticky search
 $(".search-box").sticky({ topSpacing: 0 });
 
-// Search Ajax
+// 
+$("li.active").next().addClass('next');
+$("li.active").prev().addClass('prev');
+
 (function() {
     var search = {
         init : function() {
@@ -16,7 +19,7 @@ $(".search-box").sticky({ topSpacing: 0 });
         },
         cacheValue : function() {
             this.search_key = this.$search_key.val();
-            this.url = 'http://localhost/app/public/students/show?search_query=' + this.search_key;
+            this.url = 'students/show?search_query=' + this.search_key;
         },
         bindEvents : function() {
             this.$search_button.on('click', this.searchAjax.bind(this));
@@ -31,11 +34,7 @@ $(".search-box").sticky({ topSpacing: 0 });
                 error : function() {
                     //
                 },
-                beforeSend : function() {
-//                    window.location.href = 'http://localhost/app/public/students';
-                },
                 success : function(response) {
-                    
                     this.$list_student.html(response);
                 }.bind(this)
             });
@@ -48,3 +47,5 @@ $(".search-box").sticky({ topSpacing: 0 });
     }
     search.init();
 })();
+
+//# sourceMappingURL=all.js.map

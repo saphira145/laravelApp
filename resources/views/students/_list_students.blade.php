@@ -1,5 +1,5 @@
 
-{!! link_to_route('students.create', 'Nhập sinh viên mới', [], ['class' => 'btn btn-primary btn-new']) !!}
+{!! link_to_route('students.create', 'Nhập sinh viên mới', [], ['class' => 'btn btn-new']) !!}
 
 <table class="table-striped table list-student-table">
     

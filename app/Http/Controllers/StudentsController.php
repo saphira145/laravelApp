@@ -14,7 +14,7 @@ class StudentsController extends Controller
     /**
      * Number of student records will be displayed
      */
-    CONST PAGE = 1;
+    CONST PAGE = 10;
     
     /**
      * @var \App\Student 
