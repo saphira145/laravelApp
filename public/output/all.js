@@ -44,3 +44,6 @@ $(document).ready(function(){
     search.init();
 })();
 
+$(document).ready(function(){
+    $(".menu").sticky({ topSpacing: 0 });
+});

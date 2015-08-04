@@ -8,7 +8,7 @@
 /*# sourceMappingURL=all.css.map */
 
 body {
-    background: #F9F9F9;
+    background: #FFFFFF;
 }
 .header-top {
     width:100%;
@@ -25,7 +25,7 @@ header {
     margin-bottom: 20px;
 }
 .footer {
-    height: 200px;
+    height: 130px;
 }
 a:hover {
     text-decoration: none;
@@ -33,6 +33,7 @@ a:hover {
 .search-box {
     margin-bottom: 20px;
     font-size: 0;
+    
 }
 .search-box > input {
     width: 100%;
@@ -55,9 +56,24 @@ a:hover {
 .search-box > button:hover {
     border:1px solid #01A89E;
     color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 20px
     /*background:rgba(255, 255, 255, 0.5);*/
 }
-
+.list-student-table {
+    margin-top:20px;
+}
+.btn-new {
+    background: #3C3838;
+    width:100%;
+}
+.btn-new:hover {
+    background: white;
+    border: 1px solid #01A89E;
+    color:#3C3838;
+    font-weight: bold;
+}
 @media only screen and (min-width: 320px) {
     .search-box > input {
         display: inline-block;
@@ -66,6 +82,7 @@ a:hover {
     .search-box > button {
         width: 20%;
     }
+    
 }
 
 @media only screen and (min-width: 640px) {
@@ -76,6 +93,9 @@ a:hover {
     .search-box > button {
         width: 10%;
     }
+    .btn-new {
+        width:25%;
+    }
 }
 .list-student-table th {
     background: #01A89E;
@@ -83,4 +103,49 @@ a:hover {
 }
 .list-student-table td:hover{
     /*box-shadow: 1px 1px 1px 5px #A8E8E5 inset;*/
+}
+
+@media screen and (max-width: 640px) {
+    table {
+      border: 0;
+    }
+    table thead {
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+    }
+
+    table td {
+      display: block;
+      text-align: right;
+      font-size: 15px;
+      border-bottom: 1px dotted #ccc;
+    }
+    table td > a {
+        font-weight: bold;
+        font-size: 18px;
+    }
+    table td:last-child {
+      border-bottom: 0;
+    }
+    table td:before {
+      content: attr(data-label);
+      float: left;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+   .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+        background-color: #01A89E;;
+        color:#fff;
+    }
+}
+@media screen and (min-width: 768px) {
+    .btn-new {
+        width:20%;
+    }
+}
+@media screen and (min-width: 992px) {
+    .btn-new {
+        width:15%;
+    }
 }
