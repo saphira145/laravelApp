@@ -1,7 +1,26 @@
 'use strict';
-$(document).ready(function(){
-    $(".menu").sticky({ topSpacing: 0 });
-});
+$(".search-box").sticky({ topSpacing: 0 });
+    
+//(function() {
+//    var pagination = {
+//        init : function() {
+//            this.cacheDom();
+//            this.bindEvents();
+//        },
+//        cacheDom : function() {
+//            this.$paginate = $(".pagination");
+//            this.$li = this.$paginate.find("li");
+//        },
+//        bindEvents : function() {
+////            this.$li.on('click', this.paginateClick.bind(this));
+//            this.$li.each(paginateClick.bind(this));
+//        },
+//        paginateClick : function(ele) {
+//            
+//        }
+//    }
+//})();    
+
 (function() {
     var search = {
         init : function() {
@@ -43,7 +62,3 @@ $(document).ready(function(){
     }
     search.init();
 })();
-
-$(document).ready(function(){
-    $(".menu").sticky({ topSpacing: 0 });
-});

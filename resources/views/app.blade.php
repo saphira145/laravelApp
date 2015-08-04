@@ -12,10 +12,10 @@
             <div class="header-top">
                 
             </div>
-            <div class="menu">
-                
-            </div>
             
+            <div class="search-box">
+                @include('students._search')
+            </div>
         </header>
         <div class="container">
             @yield('content')
