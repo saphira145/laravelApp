@@ -114,10 +114,11 @@ class StudentsController extends Controller
      * 
      * @return Response
      */
-    public function search(Request $request) {
-        $seachKey = $request->input('search_key');
-        $collection = $this->student->search($seachKey);
-        $students = new LengthAwarePaginator($collection, count($collection), self::PAGE);
-        return view('students._list_students', compact('students'));
-    }
+//    public function search(Request $request) {
+//        echo 2;
+//        $seachKey = $request->input('search_key');
+//        $collection = $this->student->search($seachKey);
+//        $students = new LengthAwarePaginator($collection, count($collection), self::PAGE);
+//        return view('students._list_students', compact('students'));
+//    }
 }

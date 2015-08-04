@@ -18,5 +18,5 @@ Route::resource('students', 'StudentsController');
 
 Route::get('students/search', [
     'as' => 'students.search',
-    'uses' => 'StudentsController@search'
+    'uses' => 'StudentsController@show'
 ]);
