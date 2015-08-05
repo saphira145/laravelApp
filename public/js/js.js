@@ -1,17 +1,13 @@
 'use strict';
 
-
 // sticky search
 $(".search-box").sticky({ topSpacing: 0 });
 
-
-// Search Ajax
+// Search and Pagination Ajax
 (function() {
     
-    pagination.init();
-    search.init();
     var search_key;
-        
+    
     var search = {
         init : function() {
             this.cacheDom();
@@ -40,7 +36,6 @@ $(".search-box").sticky({ topSpacing: 0 });
                     //
                 },
                 success : function(response) {
-//                    var data = $.json(response);
                     this.$list_student.html(response);
                 }.bind(this)
             });
@@ -51,7 +46,6 @@ $(".search-box").sticky({ topSpacing: 0 });
             }
         }
     };
-     
     
     var pagination = {
         init : function() {
@@ -87,6 +81,10 @@ $(".search-box").sticky({ topSpacing: 0 });
             });
         }
     };
+    
+    // Processing
+    pagination.init();
+    search.init();
     
 })();
 
