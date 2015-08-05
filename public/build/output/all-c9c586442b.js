@@ -15,6 +15,7 @@ $(".search-box").sticky({ topSpacing: 0 });
             this.bindEvents();
         },
         cacheDom : function() {
+             console.log(1);
             this.$list_student = $(".list-student");
             this.$search_button = $("#search_button");
             this.$search_key = $("#search_key");
@@ -34,7 +35,7 @@ $(".search-box").sticky({ topSpacing: 0 });
                 type : 'get',
                 dataType: 'html',
                 beforeSend : function() {
-                    //
+                    console.log(2);
                 },
                 error : function() {
                     //

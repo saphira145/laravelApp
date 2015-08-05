@@ -29,12 +29,13 @@ $(".search-box").sticky({ topSpacing: 0 });
         },
         searchAjax : function() {
             this.cacheValue();
+            console.log(1);
             $.ajax({
                 url : this.url,
                 type : 'get',
                 dataType: 'html',
                 beforeSend : function() {
-                    //
+                    console.log(2);
                 },
                 error : function() {
                     //

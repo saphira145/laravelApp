@@ -33,10 +33,14 @@ $(".search-box").sticky({ topSpacing: 0 });
                 url : this.url,
                 type : 'get',
                 dataType: 'html',
+                beforeSend : function() {
+                    //
+                },
                 error : function() {
                     //
                 },
                 success : function(response) {
+                    console.log(this.$list_student);
                     this.$list_student.html(response);
                 }.bind(this)
             });

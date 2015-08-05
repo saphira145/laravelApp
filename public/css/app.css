@@ -79,7 +79,7 @@ a:hover {
     display: none;
 }
 .list-student-table th {
-    background: linear-gradient(to bottom, #1FB9B0 0%, #039C93 56%, #0AA299 100%);
+    background: #01A89E;
     color: #fff;
 }
 @media only screen and (min-width: 320px) {
@@ -172,3 +172,22 @@ a:hover {
 .pagination>.active>a, .pagination>.active>a:hover{
     background: #0D8C84;
 }*/
+
+label.control-label {
+  font-weight: 600;
+  color: #777;
+}
+.form-group.internal {
+    margin-bottom: 0;
+}
+.panel-primary>.panel-heading {
+    background: #01A89E;
+}
+.btn-custom {
+    background: #01A89E;
+    color: #fff;
+}
+.btn-custom:hover {
+    color: #fff;
+    background: #0D8982;
+}

@@ -29,12 +29,13 @@ $(".search-box").sticky({ topSpacing: 0 });
         },
         searchAjax : function() {
             this.cacheValue();
+            console.log(1);
             $.ajax({
                 url : this.url,
                 type : 'get',
                 dataType: 'html',
                 beforeSend : function() {
-                    //
+                    console.log(this.$list_student);
                 },
                 error : function() {
                     //

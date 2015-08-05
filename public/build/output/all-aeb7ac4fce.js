@@ -34,14 +34,15 @@ $(".search-box").sticky({ topSpacing: 0 });
                 type : 'get',
                 dataType: 'html',
                 beforeSend : function() {
-                    //
+                    console.log($(".list-student"));   
+                    $(".list-student").blur();
                 },
                 error : function() {
                     //
                 },
                 success : function(response) {
-                    console.log(this.$list_student);
                     this.$list_student.html(response);
+                    $(".list-student").fadeIn();
                 }.bind(this)
             });
         },

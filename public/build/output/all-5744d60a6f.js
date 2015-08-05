@@ -33,15 +33,15 @@ $(".search-box").sticky({ topSpacing: 0 });
                 url : this.url,
                 type : 'get',
                 dataType: 'html',
-                beforeSend : function() {
-                    //
+                beforeSend : function() { 
+                    $(".list-student").blur();
                 },
                 error : function() {
                     //
                 },
                 success : function(response) {
-                    console.log(this.$list_student);
                     this.$list_student.html(response);
+//                    $(".list-student").off("blur");
                 }.bind(this)
             });
         },

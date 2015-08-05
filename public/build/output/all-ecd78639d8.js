@@ -34,7 +34,7 @@ $(".search-box").sticky({ topSpacing: 0 });
                 type : 'get',
                 dataType: 'html',
                 beforeSend : function() {
-                    //
+                    
                 },
                 error : function() {
                     //

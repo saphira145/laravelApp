@@ -1,9 +1,14 @@
 @extends('app')
 
 @section('content')
-
-{!! Form::open(['url' => 'students']) !!}
-    @include('students._form', ['submitButtonText' => 'Thêm mới'])
-{!! Form::close() !!}
-
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h4>Thêm mới sinh viên</h4>
+    </div>
+    <div class="panel-body">
+    {!! Form::open(['url' => 'students', 'class' => 'form-horizontal']) !!}
+        @include('students._form', ['submitButtonText' => 'Thêm mới'])
+    {!! Form::close() !!}
+    </div>
+</div>
 @stop
