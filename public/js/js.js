@@ -8,6 +8,7 @@ $(".search-box").sticky({ topSpacing: 0 });
     
     var search_key;
     
+    // Search ajax
     var search = {
         init : function() {
             this.cacheDom();
@@ -46,7 +47,7 @@ $(".search-box").sticky({ topSpacing: 0 });
             }
         }
     };
-    
+    // Pagination ajax
     var pagination = {
         init : function() {
             this.cacheDom();
