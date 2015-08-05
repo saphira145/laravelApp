@@ -28,3 +28,6 @@
 
 </table>
 
+<div class="text-right">
+    @include('pagination', ['paginator' => $students])
+</div>

@@ -7,6 +7,4 @@
     @include('students._list_students')
 </div>
 
- 
-@include('pagination', ['paginator' => $students])
 @stop

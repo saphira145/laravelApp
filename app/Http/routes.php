@@ -14,9 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('students', 'StudentsController');
+Route::resource('students', 'StudentsController',[
+    'except' => 'show'
+]);
 
-Route::get('students/search', [
-    'as' => 'students.search',
-    'uses' => 'StudentsController@show'
+Route::get('students/searchAndPaginateAjax', [
+    'as' => 'students.searchAndPaginateAjax',
+    'uses' => 'StudentsController@searchAndPaginateAjax'
 ]);

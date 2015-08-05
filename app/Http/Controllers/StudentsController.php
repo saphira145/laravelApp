@@ -14,7 +14,7 @@ class StudentsController extends Controller
     /**
      * Number of student records will be displayed
      */
-    CONST PAGE = 10;
+    CONST PAGE = 2;
     
     /**
      * @var \App\Student 
@@ -59,20 +59,6 @@ class StudentsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show(Request $request)
-    {
-        $seachKey = $request->input('search_query');
-        $collection = $this->student->search($seachKey);
-        $students = new LengthAwarePaginator($collection, count($collection), self::PAGE);
-        return view('students._list_students', compact('students'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -110,15 +96,18 @@ class StudentsController extends Controller
     }
     
     /**
-     * Search students
      * 
      * @return Response
      */
-//    public function search(Request $request) {
-//        echo 2;
-//        $seachKey = $request->input('search_key');
-//        $collection = $this->student->search($seachKey);
-//        $students = new LengthAwarePaginator($collection, count($collection), self::PAGE);
-//        return view('students._list_students', compact('students'));
-//    }
+    public function searchAndPaginateAjax(Request $request) {
+        $search_key = $request->input('search_key');
+        if ($search_key) {
+            $collection = $this->student->search($search_key);
+            $page = $request->input('page');
+            $students = new LengthAwarePaginator($collection->forPage($page, self::PAGE), count($collection), self::PAGE);
+        } else {
+            $students = $this->student->paginate(self::PAGE)->setPath('students');
+        }
+        return view('students._list_students', compact('students'));
+    }
 }
