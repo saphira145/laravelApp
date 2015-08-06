@@ -19,11 +19,11 @@ elixir(function(mix) {
        'app.css'
     ], 'public/output/all.css', 'public/css');
     
-    mix.version('public/output/all.css');
+//    mix.version('public/output/all.css');
     
     mix.scripts([
         'js.js'
     ], 'public/output/all.js', 'public/js');
     
-    mix.version('public/output/all.js');
+//    mix.version('public/output/all.js');
 });

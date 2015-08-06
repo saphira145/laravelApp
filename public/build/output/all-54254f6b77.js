@@ -105,7 +105,9 @@ $("#create-student-form").validate({
         fullname : "Nhập tên sinh viên",
         birthday : "Nhập ngày sinh",
         address : "Nhập địa chỉ"
-    }
+    },
+    errorClass : "new"
 });
 
+//# sourceMappingURL=all.js.map
 //# sourceMappingURL=all.js.map

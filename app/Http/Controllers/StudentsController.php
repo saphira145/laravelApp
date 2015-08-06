@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateStudentRequest;
-use App\Http\Requests\EditStudentRequest;
+use App\Http\Requests\StudentsRequest;
 use App\Student;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,7 +51,7 @@ class StudentsController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(CreateStudentRequest $request)
+    public function store(StudentsRequest $request)
     {
         $this->student->create($request->all());
         session()->flash("flash_message", "Thêm mới thành công sinh viên " . $request->input("fullname"));
@@ -78,7 +77,7 @@ class StudentsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(EditStudentRequest $request, $id)
+    public function update(StudentsRequest $request, $id)
     {
         $this->student->findOrFail($id)->update($request->except('student_code'));
         session()->flash("flash_message", "Chỉnh sửa thành công sinh viên " . $request->input("fullname"));

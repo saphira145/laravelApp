@@ -4,4 +4,4 @@
                         'placeholder' => 'Tìm kiếm theo tên, địa chỉ, mã sinh viên...']) 
 !!}
 
-{!! Form::button('Tìm', ['class' => 'btn', 'id' => 'search_button', 'onclick' => 'return false;']) !!}
+{!! Form::button('<i class="fa fa-search"></i>', ['class' => 'btn', 'id' => 'search_button', 'onclick' => 'return false;']) !!}

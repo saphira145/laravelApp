@@ -11,7 +11,7 @@
     <body>
         <header>
             <div class="header-top">
-                
+               
             </div>
             @if (Route::currentRouteName() === 'students.index')
             <div class="search-box">

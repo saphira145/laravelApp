@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class EditStudentRequest extends Request
+class StudentsRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,15 @@ class EditStudentRequest extends Request
      */
     public function rules()
     {
-        return [
+        $rules = [
             'fullname' => 'required',
             'birthday' => 'required|date',
             'sex'      => 'required',
             'address'  => 'required'
         ];
+        if ($this->route()->getAction()['as'] === 'students.store') {
+            $rules['student_code'] = 'required|unique:students';
+        }
+        return $rules;
     }
 }

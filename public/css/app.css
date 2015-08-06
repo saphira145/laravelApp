@@ -32,14 +32,14 @@ a:hover {
 }
 .search-box > input {
     width: 70%;
-    /*border:1px solid #01A89E;*/
     border:none;
     height: 50px;
     padding: 5px 20px;
     font-size: 20px;
     color: #31708f;
 }
-.search-box > button {
+.search-box > button, .search-box > button:focus {
+    font-size: 22px;
     width: 30%;
     border:1px solid #01A89E;
     background: linear-gradient(to bottom, #1FB9B0 0%, #039C93 56%, #0AA299 100%);
@@ -54,8 +54,8 @@ a:hover {
     border:1px solid #01A89E;
     color: #fff;
     font-weight: bold;
-    font-size: 20px;
-    line-height: 20px
+    font-size: 25px;
+    line-height: 25px
     /*background:rgba(255, 255, 255, 0.5);*/
 }
 .list-student-table {
@@ -67,9 +67,10 @@ a:hover {
     border: 1px solid #01A89E;
     color:#01A89E;
     font-weight: bold;
+    transition: background 0.3s;
 }
 .btn-new:hover {
-    background: linear-gradient(to bottom, #1FB9B0 0%, #039C93 56%, #0AA299 100%);
+    background: #01A89E;
     border: 1px solid #fff;
     color:#fff;
     font-weight: bold;
@@ -123,11 +124,13 @@ a:hover {
     .btn-new {
         width:25%;
     }
-    
 }
 @media screen and (min-width: 992px) {
     .btn-new {
         width:20%;
+    }
+    .btn-delete {
+        margin-top:-355px;
     }
 }
 @media screen and (max-width: 640px) {
@@ -164,14 +167,14 @@ a:hover {
         color:#fff;
     }
 }
-/*.pagination>li>a:focus,
+.pagination>li>a:focus,
 .pagination>li>a:hover,
 .pagination>li>a{
     color: #0D8C84;
 }
 .pagination>.active>a, .pagination>.active>a:hover{
     background: #0D8C84;
-}*/
+}
 
 label.control-label {
   font-weight: 600;
@@ -190,4 +193,16 @@ label.control-label {
 .btn-custom:hover {
     color: #fff;
     background: #0D8982;
+}
+.student-form-del {
+    /*float:right;*/
+    /*display: inline-block;*/
+}
+label.error {
+    color: #a94442;
+    font-weight: normal;
+}
+label.required:after {
+    content: "*";
+    color: red;
 }

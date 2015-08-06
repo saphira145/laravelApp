@@ -43,8 +43,7 @@ a:hover {
     font-size: 20px;
     color: #31708f;
 }
-.search-box > button, .search-box > button:focus {
-    font-size: 22px;
+.search-box > button {
     width: 30%;
     border:1px solid #01A89E;
     background: linear-gradient(to bottom, #1FB9B0 0%, #039C93 56%, #0AA299 100%);
@@ -59,8 +58,8 @@ a:hover {
     border:1px solid #01A89E;
     color: #fff;
     font-weight: bold;
-    font-size: 25px;
-    line-height: 25px
+    font-size: 20px;
+    line-height: 20px
     /*background:rgba(255, 255, 255, 0.5);*/
 }
 .list-student-table {
@@ -135,7 +134,7 @@ a:hover {
         width:20%;
     }
     .btn-delete {
-        margin-top:-355px;
+        margin-top:-49px;
     }
 }
 @media screen and (max-width: 640px) {
