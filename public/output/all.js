@@ -1,8 +1,5 @@
 'use strict';
 
-// sticky search
-$(".search-box").sticky({ topSpacing: 0 });
-
 // Search and Pagination Ajax
 (function() {
     
@@ -40,7 +37,6 @@ $(".search-box").sticky({ topSpacing: 0 });
                     //
                 },
                 success : function(response) {
-                    console.log(this.$list_student);
                     this.$list_student.html(response);
                 }.bind(this)
             });
@@ -61,10 +57,10 @@ $(".search-box").sticky({ topSpacing: 0 });
             this.$list_student = $(".list-student");
         },
         cacheValue : function() {
-            this.url = 'students/searchAndPaginateAjax?page=' + this.pageIndex;
-            if(search_key) {
+            if (this.pageIndex !== undefined)
+                this.url = 'students/searchAndPaginateAjax?page=' + this.pageIndex;
+            if(search_key !== undefined) 
                 this.url += '&search_key=' + search_key;
-            }
         },
         bindEvents : function() {
             this.$list_student.on('click', '.pagination > li', this.paginateAjax.bind(this));
@@ -92,6 +88,25 @@ $(".search-box").sticky({ topSpacing: 0 });
     search.init();
     
 })();
+
+// sticky search
+$(".search-box").sticky({ topSpacing: 0 });
+//slide up message
+$(".alert-success").delay(3000).slideUp();
+//click delete button
+$(".btn-delete").on('click', function() {
+    if (!confirm("Bạn có muốn xóa?"))
+        return false;
+});
+// validate form student
+$("#create-student-form").validate({
+    messages : {
+        student_code : "Nhập mã sinh viên",
+        fullname : "Nhập tên sinh viên",
+        birthday : "Nhập ngày sinh",
+        address : "Nhập địa chỉ"
+    }
+});
 
 //# sourceMappingURL=all.js.map
 //# sourceMappingURL=all.js.map

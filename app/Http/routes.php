@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('students.index');
 });
 Route::resource('students', 'StudentsController',[
     'except' => 'show'
@@ -21,4 +21,8 @@ Route::resource('students', 'StudentsController',[
 Route::get('students/searchAndPaginateAjax', [
     'as' => 'students.searchAndPaginateAjax',
     'uses' => 'StudentsController@searchAndPaginateAjax'
+]);
+Route::controllers([
+   'auth' => 'Auth\AuthController',
+   'password' => 'Auth\PasswordController'
 ]);

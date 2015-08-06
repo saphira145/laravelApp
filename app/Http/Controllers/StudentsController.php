@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StudentRequest;
+use App\Http\Requests\CreateStudentRequest;
+use App\Http\Requests\EditStudentRequest;
 use App\Student;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Symfony\Component\HttpFoundation\Response;
 
 class StudentsController extends Controller
@@ -17,7 +17,7 @@ class StudentsController extends Controller
     CONST PAGE = 2;
     
     /**
-     * @var \App\Student 
+     * @var Student 
      */
     protected $student;
     
@@ -52,9 +52,10 @@ class StudentsController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(StudentRequest $request)
+    public function store(CreateStudentRequest $request)
     {
         $this->student->create($request->all());
+        session()->flash("flash_message", "Thêm mới thành công sinh viên " . $request->input("fullname"));
         return redirect()->route('students.index');
     }
 
@@ -77,9 +78,10 @@ class StudentsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(StudentRequest $request, $id)
+    public function update(EditStudentRequest $request, $id)
     {
-        $this->student->findOrFail($id)->update($request->all());
+        $this->student->findOrFail($id)->update($request->except('student_code'));
+        session()->flash("flash_message", "Chỉnh sửa thành công sinh viên " . $request->input("fullname"));
         return redirect()->route('students.index');
     }
 
@@ -92,6 +94,7 @@ class StudentsController extends Controller
     public function destroy($id)
     {
         $this->student->findOrFail($id)->delete();
+        session()->flash("flash_message", "Xóa thành công sinh viên");
         return redirect()->route('students.index');
     }
     
@@ -101,10 +104,9 @@ class StudentsController extends Controller
      */
     public function searchAndPaginateAjax(Request $request) {
         $search_key = $request->input('search_key');
+        $page = $request->input('page');
         if ($search_key) {
-            $collection = $this->student->search($search_key);
-            $page = $request->input('page');
-            $students = new LengthAwarePaginator($collection->forPage($page, self::PAGE), count($collection), self::PAGE);
+            $students = $this->student->getSearchResults($search_key, $page, self::PAGE);
         } else {
             $students = $this->student->paginate(self::PAGE)->setPath('students');
         }

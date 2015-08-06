@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="panel panel-primary">
+<div class="panel panel-primary panel-custom">
     <div class="panel-heading">
         <h4>Thêm mới sinh viên</h4>
     </div>
@@ -11,11 +11,18 @@
         @include('students._form', ['submitButtonText' => 'Sửa'])
     {!! Form::close() !!}
     
-    {!! Form::open(['method' => 'DELETE', 'url' => route('students.destroy', [$student->id])]) !!}
-    {!! Form::submit('Delete', ['class' => 'btn btn-primary']) !!}
-{!! Form::close() !!}
+    {!! Form::open(['method' => 'DELETE', 'url' => route('students.destroy', [$student->id]), 'class' => 'form-horizontal']) !!}
+        <div class="form-group">
+            <div class="col-sm-12 col-md-offset-10 col-md-2">
+                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-delete col-md-4 form-control']) !!}
+            </div>
+        </div>
+    {!! Form::close() !!}
     </div>
-</div>  
+</div>
 
+<script>
+    
+</script>
 
 @stop

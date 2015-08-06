@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class StudentRequest extends Request
+class EditStudentRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,6 @@ class StudentRequest extends Request
     public function rules()
     {
         return [
-//            'student_code' => 'required|unique:students',
-            'student_code' => 'required',
             'fullname' => 'required',
             'birthday' => 'required|date',
             'sex'      => 'required',

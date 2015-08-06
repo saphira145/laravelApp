@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="{{ URL::asset('output/all.css') }}"/>
         <link rel="stylesheet" href="{{ URL::asset('css/font-awesome.min.css') }}"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
         
     </head>
     <body>
@@ -19,13 +20,17 @@
             @endif
         </header>
         <div class="container">
+
+            <div>
             @yield('content')
+            </div>
         </div>
         <div class="footer">
             
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="{{ URL::asset('js/jquery.sticky.js') }}"></script>
+        <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
         <script src="{{ URL::asset('output/all.js') }}"></script>
                 
         
