@@ -109,6 +109,7 @@ class StudentsController extends Controller
         } else {
             $students = $this->student->paginate(self::PAGE)->setPath('students');
         }
+        usleep(200000);
         return view('students._list_students', compact('students'));
     }
 }

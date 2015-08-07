@@ -10,20 +10,23 @@
     </head>
     <body>
         <header>
-            <div class="header-top">
+<!--            <div class="header-top">
                
-            </div>
+            </div>-->
+            @include('partials._navbar')
             @if (Route::currentRouteName() === 'students.index')
+            <div class="container">
             <div class="search-box">
                 @include('students._search')
             </div>
+            </div>
             @endif
         </header>
-        <div class="container">
-
-            <div>
+        
+        <div class="container main">
+            
             @yield('content')
-            </div>
+            
         </div>
         <div class="footer">
             
@@ -32,7 +35,5 @@
         <script src="{{ URL::asset('js/jquery.sticky.js') }}"></script>
         <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
         <script src="{{ URL::asset('output/all.js') }}"></script>
-                
-        
     </body>
 </html>

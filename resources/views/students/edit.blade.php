@@ -4,6 +4,7 @@
 
 <div class="panel panel-primary panel-custom">
     <div class="panel-heading">
+        <a href="{{ route('students.index') }}"><i class="fa fa-arrow-circle-left"></i></a>
         <h4>Sửa sinh viên</h4>
     </div>
     <div class="panel-body">

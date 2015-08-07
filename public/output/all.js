@@ -15,6 +15,7 @@
             this.$list_student = $(".list-student");
             this.$search_button = $("#search_button");
             this.$search_key = $("#search_key");
+            this.$container = $(".list-student-container");
         },
         cacheValue : function() {
             search_key = this.$search_key.val();
@@ -31,7 +32,7 @@
                 type : 'get',
                 dataType: 'html',
                 beforeSend : function() {
-                    //
+                    $(".ajax-loading").show();
                 },
                 error : function() {
                     //
@@ -58,7 +59,8 @@
         },
         cacheValue : function() {
             if (this.pageIndex !== undefined)
-                this.url = 'students/searchAndPaginateAjax?page=' + this.pageIndex;
+                this.url = 'students/searchAndPaginateAjax?page=' + this.pageIndex; 
+                
             if(search_key !== undefined) 
                 this.url += '&search_key=' + search_key;
         },
@@ -76,6 +78,9 @@
                 error : function() {
                     //
                 },
+                beforeSend : function(xhr) {
+                    (this.pageIndex === undefined) ? xhr.abort() : $(".ajax-loading").show();
+                }.bind(this),
                 success : function(response) {
                     this.$list_student.html(response);
                 }.bind(this)
@@ -93,7 +98,7 @@
 $(".search-box").sticky({ topSpacing: 0 });
 //slide up message
 $(".alert-success").delay(3000).slideUp();
-//click delete button
+//confirm delete button
 $(".btn-delete").on('click', function() {
     if (!confirm("Bạn có muốn xóa?"))
         return false;

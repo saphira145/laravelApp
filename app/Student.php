@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Providers\Pagination;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -41,7 +42,8 @@ class Student extends Model
      */
     public function getSearchResults($search_key, $page, $perPage) {
         $collection = $this->search($search_key);
-        $students = new LengthAwarePaginator($collection->forPage($page, $perPage), count($collection), $perPage);
+        $students = Pagination::makeLengthAwarePaginator($collection->forPage($page, $perPage), 
+                            count($collection), $perPage);
         return $students;
     }
 }
