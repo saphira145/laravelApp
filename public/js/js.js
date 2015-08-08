@@ -1,99 +1,103 @@
 'use strict';
 
-// Search and Pagination Ajax
-(function() {
-    
+// Search ajax
+var search = (function(){       
+
+    // Varriables
+    var $list_student = $(".list-student");
+    var $search_button = $("#search_button");
+    var $search_key = $("#search_key");
+    var url;
     var search_key;
-    
-    // Search ajax
-    var search = {
-        init : function() {
-            this.cacheDom();
-            this.bindEvents();
-        },
-        cacheDom : function() {
-            this.$list_student = $(".list-student");
-            this.$search_button = $("#search_button");
-            this.$search_key = $("#search_key");
-        },
-        cacheValue : function() {
-            search_key = this.$search_key.val();
-            this.url = 'students/searchAndPaginateAjax?search_key=' + search_key;
-        },
-        bindEvents : function() {
-            this.$search_button.on('click', this.searchAjax.bind(this));
-            this.$search_key.keypress(this.enterPress.bind(this));
-        },
-        searchAjax : function() {
-            this.cacheValue();
-            $.ajax({
-                url : this.url,
-                type : 'get',
-                dataType: 'html',
-                beforeSend : function() {
-                    //
-                },
-                error : function() {
-                    //
-                },
-                success : function(response) {
-                    this.$list_student.html(response);
-                }.bind(this)
-            });
-        },
-        enterPress : function(e) {
-            if (e.which === 13) {
-                this.$search_button.click();
-            }
+
+    // Bind Events
+    $search_button.on('click', searchAjax);
+    $search_key.keypress(enterPress);
+
+    function cacheValue() {
+        search_key = $search_key.val();
+        url = 'students/searchAndPaginateAjax?search_key=' + search_key;
+    }
+
+    function searchAjax() {
+        cacheValue();
+        $.ajax({
+            url : url,
+            type : 'get',
+            dataType: 'html',
+            beforeSend : function() {
+                $(".ajax-loading").show();
+            },
+            error : function() {
+                //
+            },
+            success : function(response) {
+                $list_student.html(response);
+            }.bind(this)
+        });
+    }
+    function enterPress(e) {
+        if (e.which === 13) {
+            $search_button.click();
         }
+    }
+
+    function getSearchKey() {
+        return search_key;
+    }
+
+    return {
+        getSearchKey : getSearchKey
     };
-    // Pagination ajax
-    var pagination = {
-        init : function() {
-            this.cacheDom();
-            this.bindEvents();
-        },
-        cacheDom : function() {
-            this.$list_student = $(".list-student");
-        },
-        cacheValue : function() {
-            if (this.pageIndex !== undefined)
-                this.url = 'students/searchAndPaginateAjax?page=' + this.pageIndex;
-            if(search_key !== undefined) 
-                this.url += '&search_key=' + search_key;
-        },
-        bindEvents : function() {
-            this.$list_student.on('click', '.pagination > li', this.paginateAjax.bind(this));
-        },
-        paginateAjax : function(e) {
-            e.preventDefault();
-            this.pageIndex = $(e.target).attr("href").split("page=")[1];
-            this.cacheValue();
-            $.ajax({
-                url : this.url,
-                type : 'get',
-                dataType: 'html',
-                error : function() {
-                    //
-                },
-                success : function(response) {
-                    this.$list_student.html(response);
-                }.bind(this)
-            });
-        }
-    };
-    
-    // Processing
-    pagination.init();
-    search.init();
-    
+
 })();
+
+// Pagination ajax
+var pagination = (function(){
+    
+    // Varriables
+    var $list_student = $(".list-student");
+    var url;
+    var search_key;
+    var pageIndex;     
+    
+    // Bind Events
+    $list_student.on('click', '.pagination > li', paginateAjax.bind(this));
+    
+    function cacheValue() {
+        url = 'students/searchAndPaginateAjax?page=' + pageIndex; 
+        if(search_key !== undefined) 
+            url += '&search_key=' + search_key;
+    }
+    
+    function paginateAjax(e) {
+        e.preventDefault();
+        pageIndex = $(e.target).attr("href").split("page=")[1];
+        search_key = search.getSearchKey();
+        cacheValue();
+        $.ajax({
+            url : url,
+            type : 'get',
+            dataType: 'html',
+            error : function() {
+                //
+            },
+            beforeSend : function(xhr) {
+                (pageIndex === undefined) ? xhr.abort() : $(".ajax-loading").show();
+            }.bind(this),
+            success : function(response) {
+                $list_student.html(response);
+            }.bind(this)
+        });
+    }
+})();
+    
 
 // sticky search
 $(".search-box").sticky({ topSpacing: 0 });
 //slide up message
 $(".alert-success").delay(3000).slideUp();
-//click delete button
+//confirm delete button
 $(".btn-delete").on('click', function() {
     if (!confirm("Bạn có muốn xóa?"))
         return false;
@@ -108,4 +112,6 @@ $("#create-student-form").validate({
     }
 });
 
+//# sourceMappingURL=all.js.map
+//# sourceMappingURL=all.js.map
 //# sourceMappingURL=all.js.map
