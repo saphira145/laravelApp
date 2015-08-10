@@ -4,8 +4,8 @@
         
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href=""><i class="fa fa-sign-in"> Login</i></a></li>
-                <li><a href="">Register</a></li>
+<!--                <li class="active"><a href=""><i class="fa fa-sign-in"> Login</i></a></li>
+                <li><a href="">Register</a></li>-->
             </ul>
         </div>
     </div>

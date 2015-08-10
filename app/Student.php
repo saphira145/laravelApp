@@ -40,8 +40,8 @@ class Student extends Model
      * @param int $perPage
      * @return LengthAwarePaginator
      */
-    public function getSearchResults($search_key, $page, $perPage) {
-        $collection = $this->search($search_key);
+    public function getSearchResults($searchKey, $page, $perPage) {
+        $collection = $this->search($searchKey);
         $students = Pagination::makeLengthAwarePaginator($collection->forPage($page, $perPage), 
                             count($collection), $perPage);
         return $students;
