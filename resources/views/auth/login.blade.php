@@ -7,6 +7,9 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Login</div>
 				<div class="panel-body">
+                                    <div class="alert alert-danger">
+                                        {{ session('error_flash') }}
+                                    </div>
 					@if (count($errors) > 0)
 						<div class="alert alert-danger">
 							<strong>Whoops!</strong> There were some problems with your input.<br><br>
