@@ -68,9 +68,15 @@ trait Login {
         Cache::forget('timeBlock');
     }
     
+    /**
+     * time lock access start from the first login too many times
+     * @param type $seconds
+     */
     public function lockAccess($seconds) {
-        $timeLockAccess = $this->getTimeLockAccess();
-        Cache::put('lastimeFails', $seconds, $timeLockAccess);
+        if (!Cache::has('lastimeFails')) {
+            $timeLockAccess = $this->getTimeLockAccess();
+            Cache::put('lastimeFails', $seconds, $timeLockAccess);
+        }
     }
     
     /**

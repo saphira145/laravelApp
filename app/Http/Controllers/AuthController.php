@@ -34,7 +34,7 @@ class AuthController extends Controller
         $credentials = $this->getCredentials($request);
         
         // Check if user login fail too many times
-        if ($this->hasAttemptToLoginTooManyTimes()) {
+        if ($this->hasAttemptToLoginTooManyTimes() || $this->checkLockAccess()) {
             $this->lockAccess(time());
 
             Session::flash('error_flash', 'You have login to many times');
