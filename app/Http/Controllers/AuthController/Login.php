@@ -9,7 +9,7 @@ namespace App\Http\Controllers\AuthController;
 
 use Illuminate\Support\Facades\Cache;
 
-trait Login{
+trait Login {
     
     /**
      * Get username, could be userID/email...
@@ -83,7 +83,7 @@ trait Login{
         if (Cache::has('lastimeFails')) {
             $lastimeFails = Cache::get('lastimeFails');
             if (($now - $lastimeFails) / 60 < $timeLockAccess) {
-                return false;
+                return true;
             }
         }
         return false;

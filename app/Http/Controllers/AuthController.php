@@ -5,14 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    
-    protected $timeBlock = 2;
-
-
     // Use trait
     use \App\Http\Controllers\AuthController\Login;
     
@@ -31,16 +28,16 @@ class AuthController extends Controller
      */
     public function postLogin(Request $request) {
         // Validate Input
-        $this->clearLoginFail();
         $this->validate($request, $this->validator());
 
         // Get Credentials
         $credentials = $this->getCredentials($request);
         
         // Check if user login fail too many times
-        if ($this->hasAttemptToLoginTooManyTimes() || $this->checkLockAccess()) {
+        if ($this->hasAttemptToLoginTooManyTimes()) {
             $this->lockAccess(time());
-            session()->flash("error_flash", "You have tried to login too many time");
+
+            Session::flash('error_flash', 'You have login to many times');
             return redirect()->route('auth.getLogin');
         }
         
