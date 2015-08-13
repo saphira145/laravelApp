@@ -15,13 +15,20 @@ class AuthControllerTest extends TestCase {
 
     public function setUp() {
         parent::setUp();
-        $this->$authController = new AuthController;
+        $this->authController = new AuthController;
     }
     
-    public function testCheckLoginBlock() {
-        $this->assertTrue(true);
-        $loginFailsPoint = 120;
-        $now = 240;
-//        $this->ret
+    public function testGetTimeLockAccess() {
+        $this->authController->timeBlock = 10;
+        $this->assertTrue($this->authController->getTimeLockAccess() === 10);
+    }
+    
+    public function testGetUsername() {
+        $this->authController->username = 'username';
+        $this->assertTrue($this->authController->getUsername() === 'username');
+    }
+    
+    public function testHasLoginTooManyTimes() {
+//        $this->o
     }
 }

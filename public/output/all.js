@@ -7,6 +7,7 @@ var search = (function(){
     var $list_student = $(".list-student");
     var $search_button = $("#search_button");
     var $search_key = $("#search_key");
+    var $ajax_loading = $(".ajax-loading");
     var url;
     var search_key;
 
@@ -26,7 +27,7 @@ var search = (function(){
             type : 'get',
             dataType: 'html',
             beforeSend : function() {
-                $(".ajax-loading").show();
+                $ajax_loading.show();
             },
             error : function() {
                 //
@@ -64,17 +65,17 @@ var pagination = (function(){
     // Bind Events
     $list_student.on('click', '.pagination > li', paginateAjax.bind(this));
     
-    function cacheValue() {
-        url = 'students/searchAndPaginateAjax?page=' + pageIndex; 
+    function cacheValue(event) {
+        pageIndex = $(event.target).attr("href").split("page=")[1];
+        url = 'students/searchAndPaginateAjax?page=' + pageIndex;
+        search_key = search.getSearchKey(); 
         if(search_key !== undefined) 
             url += '&search_key=' + search_key;
     }
     
-    function paginateAjax(e) {
-        e.preventDefault();
-        pageIndex = $(e.target).attr("href").split("page=")[1];
-        search_key = search.getSearchKey();
-        cacheValue();
+    function paginateAjax(event) {
+        event.preventDefault();
+        cacheValue(event);
         $.ajax({
             url : url,
             type : 'get',
