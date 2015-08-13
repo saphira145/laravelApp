@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Cache\CacheManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -13,6 +14,13 @@ class AuthController extends Controller
     // Use trait
     use \App\Http\Controllers\AuthController\Login;
     
+    protected $cacheManager;
+
+
+    public function __construct(CacheManager $cacheManager) {
+        $this->cacheManager = $cacheManager;
+    }
+    
     /**
      * Render login view
      * @return Response
@@ -21,7 +29,9 @@ class AuthController extends Controller
         echo Auth::check();
         return view('auth.login');
     }
-    
+    public function getCacheManager() {
+        return $this->cacheManager;
+    }
     /**
      * Processing login
      * @param Request $request
@@ -34,7 +44,7 @@ class AuthController extends Controller
         $credentials = $this->getCredentials($request);
         
         // Check if user login fail too many times
-        if ($this->hasAttemptToLoginTooManyTimes() || $this->checkLockAccess()) {
+        if ($this->hasAttemptToLoginTooManyTimes()) {
             $this->lockAccess(time());
 
             Session::flash('error_flash', 'You have login to many times');

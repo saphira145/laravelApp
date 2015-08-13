@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use Illuminate\Cache\CacheManager;
+
 
 /* 
  * To change this license header, choose License Headers in Project Properties.
@@ -11,11 +13,16 @@ use App\Http\Controllers\AuthController;
 class AuthControllerTest extends TestCase {
     
     protected $authController;
-
-
+    
     public function setUp() {
         parent::setUp();
-        $this->authController = new AuthController;
+        $cacheManager = $this->getMockBuilder('Illuminate\Cache\CacheManager', array('get'))
+                ->disableOriginalConstructor()->getMock();
+
+        $cacheManager->expects($this->any())->method('get')->with($this->equalTo('timeLoginFails'))
+                    ->will($this->returnValue(6));
+                dd($cacheManager->get('timeLoginFails'));
+        $this->authController = new AuthController($cacheManager);
     }
     
     public function testGetTimeLockAccess() {
@@ -29,6 +36,16 @@ class AuthControllerTest extends TestCase {
     }
     
     public function testHasLoginTooManyTimes() {
-//        $this->o
+//        $this->authController->getCacheManager()->expects($this->any())->method('has')
+//                ->with($this->equalTo('timeLoginFails'))
+//                ->will($this->returnValue(true));
+//        $this->authController->getCacheManager()->expects($this->any())->method('get')
+//                ->with($this->equalTo('timeLoginFails'))
+//                ->will($this->returnValue(6));
+//        echo $this->authController->getCacheManager()->get('timeLoginFails');
+        dd($this->authController->getCacheManager());
+        
+//        $this->assertTrue($this->authController->hasAttemptToLoginTooManyTimes());
     }
 }
+
