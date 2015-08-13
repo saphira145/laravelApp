@@ -35,7 +35,7 @@ class AuthController extends Controller
         
         // Check if user login fail too many times
         if ($this->hasAttemptToLoginTooManyTimes()) {
-            $this->lockAccess(time());
+//            $this->lockAccess(time());
 
             Session::flash('error_flash', 'You have login to many times');
             return redirect()->route('auth.getLogin');
@@ -44,6 +44,7 @@ class AuthController extends Controller
         // Handle succesfully authenticate
         if (Auth::attempt($credentials)) {
             $this->clearLoginFail();
+            Session::flash('error_flash', 'Success');
             return redirect()->route('auth.getLogin');
         }
         
@@ -75,8 +76,8 @@ class AuthController extends Controller
     
     public function getCredentials(Request $request) {
         $credentials = [
-            $this->getUsername() => trim($request->input('email')),
-            'password'           => trim($request->input('password'))
+                $this->getUsername() => trim($request->input('email')),
+                'password'           => trim($request->input('password'))
         ];
         return $credentials; 
     }
