@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Cache\CacheManager;
 
 
 /* 
@@ -16,13 +15,8 @@ class AuthControllerTest extends TestCase {
     
     public function setUp() {
         parent::setUp();
-        $cacheManager = $this->getMockBuilder('Illuminate\Cache\CacheManager', array('get'))
-                ->disableOriginalConstructor()->getMock();
-
-        $cacheManager->expects($this->any())->method('get')->with($this->equalTo('timeLoginFails'))
-                    ->will($this->returnValue(6));
-                dd($cacheManager->get('timeLoginFails'));
-        $this->authController = new AuthController($cacheManager);
+        $cacheRepository = Mockery::mock('Illuminate\Cache\Repository');
+        $this->authController = new AuthController($cacheRepository);
     }
     
     public function testGetTimeLockAccess() {
@@ -36,16 +30,14 @@ class AuthControllerTest extends TestCase {
     }
     
     public function testHasLoginTooManyTimes() {
-//        $this->authController->getCacheManager()->expects($this->any())->method('has')
-//                ->with($this->equalTo('timeLoginFails'))
-//                ->will($this->returnValue(true));
-//        $this->authController->getCacheManager()->expects($this->any())->method('get')
-//                ->with($this->equalTo('timeLoginFails'))
-//                ->will($this->returnValue(6));
-//        echo $this->authController->getCacheManager()->get('timeLoginFails');
-        dd($this->authController->getCacheManager());
+        $this->authController->getCacheRepository()->shouldReceive('get')
+                ->atLeast(0)->with('timeLoginFails')->andReturn('6');
+        $this->authController->getCacheRepository()->shouldReceive('has')
+                ->atLeast(0)->with('timeLoginFails')->andReturn(true);
         
-//        $this->assertTrue($this->authController->hasAttemptToLoginTooManyTimes());
+        $this->assertTrue($this->authController->hasAttemptToLoginTooManyTimes());
+
     }
+    
 }
 

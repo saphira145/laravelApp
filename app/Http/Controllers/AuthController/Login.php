@@ -32,8 +32,8 @@ trait Login {
      * @return boolean
      */
     public function hasAttemptToLoginTooManyTimes() {
-        if ($this->cacheManager->has('timeLoginFails')) {
-            $loginFails = $this->cacheManager->get('timeLoginFails');
+        if ($this->cacheRepository->has('timeLoginFails')) {
+            $loginFails = $this->cacheRepository->get('timeLoginFails');
             if ($loginFails >= $this->getMaxTimesLoginFail()) {
                 return true;
             }
@@ -45,10 +45,10 @@ trait Login {
      * Increase number times of login fails
      */
     public function loginFailTimeIncrement() {
-        if ($this->cacheManager->has('timeLoginFails')) {
-            $this->cacheManager->increment('timeLoginFails');
+        if ($this->cacheRepository->has('timeLoginFails')) {
+            $this->cacheRepository->increment('timeLoginFails');
         } else {
-            $this->cacheManager->put('timeLoginFails', 1, 1);
+            $this->cacheRepository->put('timeLoginFails', 1, 1);
         }
     }
     
@@ -62,8 +62,8 @@ trait Login {
     }
     
     public function clearLoginFail() {
-        $this->cacheManager->forget('timeLoginFails');
-        $this->cacheManager->forget('timeBlock');
+        $this->cacheRepository->forget('timeLoginFails');
+        $this->cacheRepository->forget('timeBlock');
     }
     
     /**
@@ -71,9 +71,9 @@ trait Login {
      * @param type $seconds
      */
     public function lockAccess($seconds) {
-        if (!$this->cacheManager->has('lockkey')) {
+        if (!$this->cacheRepository->has('lockkey')) {
             $timeLockAccess = $this->getTimeLockAccess();
-            $this->cacheManager->put('lockkey', $seconds, $timeLockAccess);
+            $this->cacheRepository->put('lockkey', $seconds, $timeLockAccess);
         }
     }
     
@@ -84,8 +84,8 @@ trait Login {
     public function checkLockAccess() {
         $now = time();
         $timeLockAccess = $this->getTimeLockAccess();
-        if ($this->cacheManager->has('lockkey')) {
-            $lastimeFails = $this->cacheManager->get('lockkey');
+        if ($this->cacheRepository->has('lockkey')) {
+            $lastimeFails = $this->cacheRepository->get('lockkey');
             if (($now - $lastimeFails) / 60 < $timeLockAccess) {
                 return true;
             }
