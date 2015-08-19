@@ -39,3 +39,8 @@ Route::get('auth/logout', [
     'as' => 'auth.getLogout',
     'uses' => 'AuthController@logout'
 ]);
+
+Route::get('students/test', [
+    'as' => 'students.test',
+    'uses' => 'StudentsController@test'
+]);

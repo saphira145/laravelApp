@@ -112,4 +112,8 @@ class StudentsController extends Controller
         usleep(200000);
         return view('students._list_students', compact('students'));
     }
+    
+    public function test() {
+        return view('students.test');
+    }
 }
