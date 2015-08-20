@@ -38,10 +38,5 @@
         <script src="{{ URL::asset('output/all.js') }}"></script>
         <script src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
         
-        <script>
-            $(document).ready(function() {
-                $('#mytable').DataTable();
-            });
-        </script>
     </body>
 </html>

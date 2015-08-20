@@ -113,6 +113,29 @@ $("#create-student-form").validate({
     }
 });
 
+$(document).ready(function() {
+    $('#mytable').DataTable({
+        processing : true,
+        serverSide : true,
+        ajax : {
+            url : '/students/ajax',
+            type : 'post',
+            headers : {
+                'X-CSRF-Token' : $('#_token').val()
+            }
+        },
+        columns : [
+            {'data' : 'student_code'},
+            {'data' : 'fullname'},
+            {'data' : 'birthday'},
+            {'data' : 'sex'},
+            {'data' : 'address'}
+        ]
+    });
+//    table.ajax.reload();
+});
+
+
 //# sourceMappingURL=all.js.map
 //# sourceMappingURL=all.js.map
 //# sourceMappingURL=all.js.map

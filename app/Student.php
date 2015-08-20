@@ -46,4 +46,53 @@ class Student extends Model
                             count($collection), $perPage);
         return $students;
     }
+    
+    /**
+     * 
+     * Other search
+     * 
+     * 
+     */
+    
+    
+    /**
+     * 
+     * @param int $limit
+     * @param int $offset
+     * @param array $order
+     * @param array $search
+     */
+    public function getListStudents($limit, $offset, $order, $search) {
+        
+        $column = $this->getOrderColumn($order[0]['column']);
+        $dir = $order[0]['dir']; 
+        $searchKey = $search['value'];
+        $students;
+        
+        if ($limit && $order) {
+            $students = $this->skip($offset)->take($limit);
+        }
+        
+        if (!$column && !$dir) {
+            $students = $students->orderBy($column, $dir);
+        }
+
+        if ($searchKey !== '') {
+            $students = $students->where('student_code', 'like', "%{$searchKey}%")
+                                ->orWhere('fullname', 'like', "%{$searchKey}%")
+                                ->orWhere('address', 'like', "%{$searchKey}%");
+        }
+        return $students->get();
+    }
+    
+    public function getOrderColumn($index) {
+        $column =  [
+            'student_code',
+            'fullname',
+            'birthday',
+            'sex',
+            'address'
+        ];
+       return $column[$index];
+    }
 }

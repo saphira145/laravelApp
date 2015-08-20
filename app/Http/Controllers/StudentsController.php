@@ -109,8 +109,22 @@ class StudentsController extends Controller
         } else {
             $students = $this->student->paginate(self::PAGE)->setPath('students');
         }
-        usleep(200000);
+        
         return view('students._list_students', compact('students'));
+    }
+    
+    public function ajax(Request $request) {
+        $order = $request->input('order');
+        $search = $request->input('search');
+        $limit = (int)$request->input('length');
+        $offset = (int)$request->input('start');
+        $draw = (int)$request->input('draw');
+        
+        // Get list student with order, search, pagination
+        $students = $this->student->getListStudents($limit, $offset, $order, $search);
+        
+        $json = ['data' => $students, 'recordsTotal' => 500, 'draw' => $draw, 'recordsFiltered' => 500];
+        return response()->json($json);
     }
     
     public function test() {
