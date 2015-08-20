@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Cache\CacheManager;
+use Illuminate\Cache\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -14,11 +14,11 @@ class AuthController extends Controller
     // Use trait
     use \App\Http\Controllers\AuthController\Login;
     
-    protected $cacheManager;
+    protected $cacheRepository;
 
 
-    public function __construct(CacheManager $cacheManager) {
-        $this->cacheManager = $cacheManager;
+    public function __construct(Repository $cacheRepository) {
+        $this->cacheRepository = $cacheRepository;
     }
     
     /**
@@ -29,8 +29,8 @@ class AuthController extends Controller
         echo Auth::check();
         return view('auth.login');
     }
-    public function getCacheManager() {
-        return $this->cacheManager;
+    public function getCacheRepository() {
+        return $this->cacheRepository;
     }
     /**
      * Processing login

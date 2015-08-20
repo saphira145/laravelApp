@@ -64,35 +64,68 @@ class Student extends Model
      */
     public function getListStudents($limit, $offset, $order, $search) {
         
-        $column = $this->getOrderColumn($order[0]['column']);
-        $dir = $order[0]['dir']; 
-        $searchKey = $search['value'];
-        $students;
+        $column = $this->getOrderColumn($order[0]['column']);   // Get column name
+        $dir = $order[0]['dir'];                                // Get direct order
+        $searchKey = $search['value'];                          // Get search key
+        $students = null;
         
-        if ($limit && $order) {
-            $students = $this->skip($offset)->take($limit);
+        // Order by selected column
+        if ($column && $dir) {
+            $students = $this->orderBy($column, $dir);
         }
         
-        if (!$column && !$dir) {
-            $students = $students->orderBy($column, $dir);
-        }
-
+        // Search by student code, name or address
         if ($searchKey !== '') {
             $students = $students->where('student_code', 'like', "%{$searchKey}%")
                                 ->orWhere('fullname', 'like', "%{$searchKey}%")
                                 ->orWhere('address', 'like', "%{$searchKey}%");
         }
-        return $students->get();
+        
+        // Get total records 
+        $totalRecords = count($students->get());
+        
+        // Paginate
+        if ($limit && $order) {
+            $students = $students->skip($offset)->take($limit);
+        }
+        
+        return [
+            'totalRecords' => $totalRecords,
+            'students' => $students->get()
+        ];
+            
     }
     
-    public function getOrderColumn($index) {
-        $column =  [
+    protected function getOrderColumn($index) {
+        $column = [
             'student_code',
             'fullname',
             'birthday',
             'sex',
             'address'
         ];
-       return $column[$index];
+        return $column[$index];
+    }
+    
+    /**
+     * 
+     * 
+     * @param type $students
+     * @return array
+     */
+    public function escapeHtml($students) {
+        $result = [];
+        foreach($students as $student) {
+            $result[] = [
+                'student_code'  => htmlspecialchars($student->student_code),
+                'fullname'      => htmlspecialchars($student->fullname),
+                'birthday'      => htmlspecialchars($student->birthday),
+                'sex'           => htmlspecialchars($student->sex),
+                'address'       => htmlspecialchars($student->address),
+                'created_at'     => $student->created_at,
+                'updated_at'     => $student->updated_at
+            ];
+        }
+        return $result;
     }
 }

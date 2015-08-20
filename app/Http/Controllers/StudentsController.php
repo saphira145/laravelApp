@@ -121,9 +121,17 @@ class StudentsController extends Controller
         $draw = (int)$request->input('draw');
         
         // Get list student with order, search, pagination
-        $students = $this->student->getListStudents($limit, $offset, $order, $search);
+        $data = $this->student->getListStudents($limit, $offset, $order, $search);
         
-        $json = ['data' => $students, 'recordsTotal' => 500, 'draw' => $draw, 'recordsFiltered' => 500];
+        // Escape html for students
+        $students = $this->student->escapeHtml($data['students']);
+        
+        $json = [
+            'data' => $students,
+            'recordsTotal' => $data['totalRecords'],
+            'draw' => $draw,
+            'recordsFiltered' => $data['totalRecords']
+        ];
         return response()->json($json);
     }
     
