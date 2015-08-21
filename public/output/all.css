@@ -284,4 +284,16 @@ label.required:after {
 .navbar-brand {
     font-size: 22px;
 }
+.sex-filter {
+    margin: 0 0 20px;
+    padding: 0;
+}
+.sex-filter > li {
+    display: inline-block;
+    margin-right: 30px;
+}
+.sex-filter label {
+    vertical-align: top;
+    
+}
 /*# sourceMappingURL=all.css.map */

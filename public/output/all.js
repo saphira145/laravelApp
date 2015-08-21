@@ -34,7 +34,7 @@ var search = (function(){
             },
             success : function(response) {
                 $list_student.html(response);
-            }.bind(this)
+            }
         });
     }
     function enterPress(e) {
@@ -85,10 +85,10 @@ var pagination = (function(){
             },
             beforeSend : function(xhr) {
                 (pageIndex === undefined) ? xhr.abort() : $(".ajax-loading").show();
-            }.bind(this),
+            },
             success : function(response) {
                 $list_student.html(response);
-            }.bind(this)
+            }
         });
     }
 })();
@@ -113,8 +113,32 @@ $("#create-student-form").validate({
     }
 });
 
-$(document).ready(function() {
-    $('#mytable').DataTable({
+$(document).ready(function(){
+    var Filter = (function() {
+        // variable
+        var $filter = $(".sex-filter");
+        var $checkbox = $filter.find("li");
+
+        // Bind event
+        $checkbox.on('click', filter);
+
+        function filter(event) {
+            if (event.target.tagName === 'LABEL') {
+                return;
+            }
+            dataTable.ajax.reload();
+        }
+        function getCheckbox() {
+            return $checkbox;
+        }
+        
+        return {
+            getCheckbox : getCheckbox
+        };
+        
+    })();
+//
+    var dataTable = $('#mytable').DataTable({
         processing : true,
         serverSide : true,
         ajax : {
@@ -122,19 +146,33 @@ $(document).ready(function() {
             type : 'post',
             headers : {
                 'X-CSRF-Token' : $('#_token').val()
+            },
+            data : function(param) {
+                var filter = [];
+                var $checkbox = Filter.getCheckbox();
+                $checkbox.each(function(){
+                    if ($(this).find('input').prop("checked")) {
+                        filter.push($(this).find('input').val());
+                    }
+                });
+                param.filter = filter;
             }
         },
+            columnDefs : [{
+                    
+            }],
         columns : [
             {'data' : 'student_code'},
             {'data' : 'fullname'},
             {'data' : 'birthday'},
             {'data' : 'sex'},
-            {'data' : 'address'}
+            {'data' : 'address'},
         ]
     });
-//    table.ajax.reload();
-});
 
+    //
+    
+});
 
 //# sourceMappingURL=all.js.map
 //# sourceMappingURL=all.js.map

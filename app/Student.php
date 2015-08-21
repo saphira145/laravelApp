@@ -61,29 +61,28 @@ class Student extends Model
      * @param int $offset
      * @param array $order
      * @param array $search
+     * @return array 
      */
-    public function getListStudents($limit, $offset, $order, $search) {
+    public function getListStudents($limit, $offset, $order, $search, $filter) {
         
         $column = $this->getOrderColumn($order[0]['column']);   // Get column name
         $dir = $order[0]['dir'];                                // Get direct order
         $searchKey = $search['value'];                          // Get search key
-        $students = null;
         
+        // Filter
+        $students = $this->whereIn('sex', $filter);        
         // Order by selected column
         if ($column && $dir) {
-            $students = $this->orderBy($column, $dir);
+            $students = $students->orderBy($column, $dir);
         }
-        
         // Search by student code, name or address
         if ($searchKey !== '') {
             $students = $students->where('student_code', 'like', "%{$searchKey}%")
                                 ->orWhere('fullname', 'like', "%{$searchKey}%")
                                 ->orWhere('address', 'like', "%{$searchKey}%");
         }
-        
         // Get total records 
         $totalRecords = count($students->get());
-        
         // Paginate
         if ($limit && $order) {
             $students = $students->skip($offset)->take($limit);
@@ -120,7 +119,7 @@ class Student extends Model
                 'student_code'  => htmlspecialchars($student->student_code),
                 'fullname'      => htmlspecialchars($student->fullname),
                 'birthday'      => htmlspecialchars($student->birthday),
-                'sex'           => htmlspecialchars($student->sex),
+                'sex'           => htmlspecialchars($this->getGender($student->sex)),
                 'address'       => htmlspecialchars($student->address),
                 'created_at'     => $student->created_at,
                 'updated_at'     => $student->updated_at
@@ -128,4 +127,16 @@ class Student extends Model
         }
         return $result;
     }
+    
+    /**
+     * Get gender from ID
+     * @param type $index
+     * @return string
+     */
+    public function getGender($index) {
+        $gender = ['Male', 'Female', 'Gay', 'Les'];
+        return $gender[$index];
+    }
+    
+    
 }

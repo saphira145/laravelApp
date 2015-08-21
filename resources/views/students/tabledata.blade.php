@@ -6,6 +6,17 @@
 
 @section('content')
 <input id="_token" value="{{ session()->getToken() }}" class="hidden">
+
+<ul class="sex-filter">
+    @foreach ($sex as $key => $value)
+    <li>
+        <input type="checkbox" id="sex-{{ $key }}" value="{{ $key }}" checked="checked">
+        <label for="sex-{{ $key }}">{{ $value }}</label>
+    </li>
+    @endforeach
+
+</ul>
+
 <table id="mytable" class='display' cellspacing="0" width="100%">
     <thead>
         <tr>
@@ -14,18 +25,9 @@
             <th>Ngày sinh</th>
             <th>Giới tính</th>
             <th>Địa chỉ</th>
+            <th>Action</th>
         </tr>
     </thead>
-<!--    <tbody>
-        @for ($i = 1; $i < 100; $i++)
-        <tr>
-            <td>{{ $faker->name }}</td>
-            <td>{{ $faker->email }}</td>
-            <td>{{ $faker->address }}</td>
-            <td>{{ $faker->phoneNumber }}</td>
-        </tr>
-        @endfor
-    </tbody>-->
 </table>
 
 @stop

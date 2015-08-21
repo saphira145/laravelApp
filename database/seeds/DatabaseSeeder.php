@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
+        $gender = ['male', 'female', 'gay', 'les'];
         $faker = Faker\Factory::create();
         // $this->call(UserTableSeeder::class);
         for ($i=0; $i < 500; $i++) {
@@ -20,8 +21,10 @@ class DatabaseSeeder extends Seeder
                 'student_code' => $faker->numberBetween(0,999999),
                 'fullname'     => $faker->name,
                 'birthday'      => $faker->date(),
-                'sex'           => $faker->city,
-                'address'       => $faker->address
+                'sex'           => array_rand($gender),
+                'address'       => $faker->address,
+                'updated_at'  => $faker->date(),
+                'created_at'  => $faker->date()
             ]);
         }
         Model::reguard();

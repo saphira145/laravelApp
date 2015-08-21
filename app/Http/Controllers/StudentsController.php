@@ -113,15 +113,21 @@ class StudentsController extends Controller
         return view('students._list_students', compact('students'));
     }
     
+    /**
+     * Get list students for table data
+     * @param Request $request
+     * @return type
+     */
     public function ajax(Request $request) {
         $order = $request->input('order');
         $search = $request->input('search');
         $limit = (int)$request->input('length');
         $offset = (int)$request->input('start');
         $draw = (int)$request->input('draw');
+        $filter = $request->input('filter');
         
-        // Get list student with order, search, pagination
-        $data = $this->student->getListStudents($limit, $offset, $order, $search);
+        // Get list student with order, search, pagination and filter
+        $data = $this->student->getListStudents($limit, $offset, $order, $search, $filter);
         
         // Escape html for students
         $students = $this->student->escapeHtml($data['students']);
@@ -136,6 +142,6 @@ class StudentsController extends Controller
     }
     
     public function test() {
-        return view('students.test');
+        return view('students.tabledata');
     }
 }
