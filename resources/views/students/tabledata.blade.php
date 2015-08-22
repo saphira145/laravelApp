@@ -30,4 +30,5 @@
     </thead>
 </table>
 
+@include('students.Modal._editStudent')
 @stop

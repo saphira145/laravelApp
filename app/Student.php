@@ -68,7 +68,7 @@ class Student extends Model
         $column = $this->getOrderColumn($order[0]['column']);   // Get column name
         $dir = $order[0]['dir'];                                // Get direct order
         $searchKey = $search['value'];                          // Get search key
-        
+
         // Filter
         $students = $this->whereIn('sex', $filter);        
         // Order by selected column
@@ -77,9 +77,11 @@ class Student extends Model
         }
         // Search by student code, name or address
         if ($searchKey !== '') {
-            $students = $students->where('student_code', 'like', "%{$searchKey}%")
-                                ->orWhere('fullname', 'like', "%{$searchKey}%")
-                                ->orWhere('address', 'like', "%{$searchKey}%");
+            $students = $students->where(function($query) use ($searchKey) {
+                $query->where('student_code', 'like', "%{$searchKey}%")
+                    ->orWhere('fullname', 'like', "%{$searchKey}%")
+                    ->orWhere('address', 'like', "%{$searchKey}%");
+                });
         }
         // Get total records 
         $totalRecords = count($students->get());
@@ -87,7 +89,7 @@ class Student extends Model
         if ($limit && $order) {
             $students = $students->skip($offset)->take($limit);
         }
-        
+
         return [
             'totalRecords' => $totalRecords,
             'students' => $students->get()
@@ -116,6 +118,7 @@ class Student extends Model
         $result = [];
         foreach($students as $student) {
             $result[] = [
+                'id'            => $student->id,
                 'student_code'  => htmlspecialchars($student->student_code),
                 'fullname'      => htmlspecialchars($student->fullname),
                 'birthday'      => htmlspecialchars($student->birthday),

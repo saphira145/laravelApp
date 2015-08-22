@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentsRequest;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class StudentsController extends Controller
@@ -67,7 +68,7 @@ class StudentsController extends Controller
     public function edit($id)
     {
         $student = $this->student->findOrFail($id);
-        return view('students.edit', compact('student'));
+        return view('students._form', compact('student'));
     }
 
     /**
@@ -93,8 +94,9 @@ class StudentsController extends Controller
     public function destroy($id)
     {
         $this->student->findOrFail($id)->delete();
-        session()->flash("flash_message", "Xóa thành công sinh viên");
-        return redirect()->route('students.index');
+//        session()->flash("flash_message", "Xóa thành công sinh viên");
+//        return redirect()->route('students.index');
+        
     }
     
     /**
@@ -128,7 +130,6 @@ class StudentsController extends Controller
         
         // Get list student with order, search, pagination and filter
         $data = $this->student->getListStudents($limit, $offset, $order, $search, $filter);
-        
         // Escape html for students
         $students = $this->student->escapeHtml($data['students']);
         

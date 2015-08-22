@@ -23,7 +23,7 @@
     <div class="col-md-6">
         <div class="form-group internal">
             <div class="col-md-11">
-                {!! Form::text('fullname', null, ['class' => 'form-control required', 'placeholder' => 'Nhập tên sinh viên']) !!}
+                <input type="text" class="form-control" id="fullname" name="fullname" value="{{ $student->fullname }}">
                 @if ($errors->has('fullname')) <label class="error">{{ $errors->first('fullname') }}</label> @endif
             </div>
         </div>
@@ -35,7 +35,7 @@
     <div class="col-md-6">
         <div class="form-group internal">
             <div class="col-md-11">
-                {!! Form::input('date', 'birthday', null, ['class' => 'form-control required','placeholder'=>'Nhập ngày sinh']) !!}
+                <input type="date" class="form-control" id="birthday" name="birthday" value="{{ $student->birthday }}">
                 @if ($errors->has('birthday')) <label class="error">{{ $errors->first('birthday') }}</label> @endif
             </div>
         </div>
@@ -46,7 +46,7 @@
     <div class="col-md-6">
         <div class="form-group internal">
             <div class="col-md-11">
-                {!! Form::text('address', null, ['class' => 'form-control required', 'placeholder' => 'Nhập Địa chỉ']) !!}
+                <input type="text" class="form-control" id="address" name="address" value="{{ $student->address }}">
                 @if ($errors->has('address')) <label class="error">{{ $errors->first('address') }}</label> @endif
             </div>
         </div>
@@ -58,15 +58,19 @@
     <div class="col-md-6">
         <div class="form-group internal">
             <div class="col-md-11">
-                {!! Form::select('sex', $sex, null, ['class' => 'form-control']) !!}
+                <select class="form-control" id="sex" name="sex">
+                    @foreach($sex as $key => $value)
+                        <option value="{{ $key }}" @if ($student->sex == $key) selected @endif>{{ $value }}</option>
+                    @endforeach
+                </select>
                 @if ($errors->has('sex')) <label class="error">{{ $errors->first('sex') }}</label> @endif
             </div>
         </div>
     </div>
 </div>
 
-<div class="form-group">
+<!--<div class="form-group">
     <div class="col-md-offset-4 col-sm-12 col-md-2">
-        <button class="btn btn-custom form-control col-md-4"><i class="fa fa-edit"></i>{{ " ".$submitButtonText }}</button>
+        <button class="btn btn-custom form-control col-md-4"><i class="fa fa-edit"></i>Save</button>
     </div> 
-</div>
+</div>-->

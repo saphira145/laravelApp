@@ -114,14 +114,18 @@ $("#create-student-form").validate({
 });
 
 $(document).ready(function(){
-    var Filter = (function() {
+    var StudentManagement = (function() {
         // variable
         var $filter = $(".sex-filter");
         var $checkbox = $filter.find("li");
+        var $body = $('body');
+        var $editStudentForm = $('#edit-student-form');
 
         // Bind event
         $checkbox.on('click', filter);
-
+        $body.on('click', '.delete-student', deleteStudent);
+        $body.on('click', '.edit-student', editStudent);
+        
         function filter(event) {
             if (event.target.tagName === 'LABEL') {
                 return;
@@ -130,6 +134,36 @@ $(document).ready(function(){
         }
         function getCheckbox() {
             return $checkbox;
+        } 
+        function deleteStudent(event) {
+            event.preventDefault();
+            if (!confirm('Are you sure you want to delete'))
+                return;
+            
+            var deleteUrl = $(".delete-student").attr("data");
+            $.ajax({
+                'url' : deleteUrl,
+                'type' : 'DELETE',
+                'headers' : {
+                    'X-CSRF-Token' : $('#_token').val(),
+                },
+                success : function() {
+                    dataTable.ajax.reload(null, false);
+                }
+            });
+        };
+        
+        function editStudent(event) {
+            event.preventDefault();
+            var id = $(event.target).attr("data");
+            var editUrl = "/students/"+ id +"/edit";
+            $.ajax({
+                url : editUrl,
+                type : 'get',
+                success : function(response) {
+                    $editStudentForm.html(response);
+                }
+            });
         }
         
         return {
@@ -149,7 +183,7 @@ $(document).ready(function(){
             },
             data : function(param) {
                 var filter = [];
-                var $checkbox = Filter.getCheckbox();
+                var $checkbox = StudentManagement.getCheckbox();
                 $checkbox.each(function(){
                     if ($(this).find('input').prop("checked")) {
                         filter.push($(this).find('input').val());
@@ -158,18 +192,26 @@ $(document).ready(function(){
                 param.filter = filter;
             }
         },
-            columnDefs : [{
-                    
-            }],
+        columnDefs: [{
+            targets: -1,
+            data: null,
+            render: function(data) {
+                var template =    "<a href='#' data='"+ data +"' class='edit-student' data-toggle='modal' data-target='#myModal'>Edit |</a>"
+                                + "<a href='#' data='"+ data +"' class='delete-student'> Delete</a>";
+                
+                return template;
+            }
+        }],
         columns : [
             {'data' : 'student_code'},
             {'data' : 'fullname'},
             {'data' : 'birthday'},
             {'data' : 'sex'},
             {'data' : 'address'},
+            {'data' : 'id'}
         ]
     });
-
+    
     //
     
 });

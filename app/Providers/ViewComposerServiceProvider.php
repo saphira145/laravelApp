@@ -14,12 +14,9 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         // Old datatable
-        view()->composer('students.tabledata', function($view) {
+        view()->composer('students._form', function($view) {
             $view->with([
-                'sex' => [
-                    'Nam' => 'Nam',
-                    'Nữ' => 'Nữ'
-                ] 
+                'sex' => ['Male', 'Female', 'Gay', 'Les']
             ]);
         });
         
