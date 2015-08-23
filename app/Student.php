@@ -5,6 +5,7 @@ namespace App;
 use App\Providers\Pagination;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Validator;
 
 class Student extends Model
 {    
@@ -15,6 +16,8 @@ class Student extends Model
         'sex',
         'address'
     ];
+    
+    protected $validateFactory;
     
     /**
      * Search students by name, student_code and address
@@ -141,5 +144,21 @@ class Student extends Model
         return $gender[$index];
     }
     
+    public function validate($request) {
+        $rules = [
+            'fullname' => 'required',
+            'birthday' => 'required|date',
+            'sex'      => 'required',
+            'address'  => 'required'
+        ];
+        
+//        $messages = [
+//            'required' => 'Field is required',
+//            'date' => 'Must be date type',
+//        ];
+        
+        $validate = Validator::make($request->all(), $rules);
+        return $validate;
+    }
     
 }

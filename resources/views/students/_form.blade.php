@@ -8,10 +8,8 @@
                     class="form-control required" placeholder="Nhập mã sinh viên" 
                     @if (isset($student))
                         value="{{ $student->student_code }}" 
+                        readonly
                     @endif
-                    @if (Route::currentRouteName() === 'students.edit')
-                        disabled
-                    @endif 
                 >
                 @if ($errors->has('student_code')) <label class="error">{{ $errors->first('student_code') }}</label> @endif
             </div>

@@ -120,11 +120,14 @@ $(document).ready(function(){
         var $checkbox = $filter.find("li");
         var $body = $('body');
         var $editStudentForm = $('#edit-student-form');
+        var $close = $('#close-student-modal');
+        var id; // Current Student ID
 
         // Bind event
         $checkbox.on('click', filter);
         $body.on('click', '.delete-student', deleteStudent);
         $body.on('click', '.edit-student', editStudent);
+        $body.on('click', '#save-student', saveStudent);
         
         function filter(event) {
             if (event.target.tagName === 'LABEL') {
@@ -155,13 +158,38 @@ $(document).ready(function(){
         
         function editStudent(event) {
             event.preventDefault();
-            var id = $(event.target).attr("data");
+            id = $(event.target).attr("data");
+            
             var editUrl = "/students/"+ id +"/edit";
             $.ajax({
                 url : editUrl,
-                type : 'get',
+                type : 'GET',
                 success : function(response) {
                     $editStudentForm.html(response);
+                }
+            });
+        } 
+
+        function saveStudent() {
+            var data = $editStudentForm.serialize();
+            var saveUrl = '/students/'+ id;
+            $.ajax({
+                url : saveUrl,
+                type : 'PUT',
+                data : data,
+                headers : {
+                    'X-CSRF-Token' : $('#_token').val(),
+                },
+                success : function(response) {
+                    switch(response.status) {
+                        case 0:
+                            $editStudentForm.html(response.html);
+                            break;
+                        case 1:
+                        default:
+                            dataTable.ajax.reload(null, false);
+                            $close.trigger('click');
+                    }
                 }
             });
         }

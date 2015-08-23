@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentsRequest;
 use App\Student;
+use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class StudentsController extends Controller
@@ -20,8 +20,9 @@ class StudentsController extends Controller
      * @var Student 
      */
     protected $student;
-    
-    
+ 
+
+
     public function __construct(Student $student) {
         $this->student = $student;
     }
@@ -78,11 +79,23 @@ class StudentsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(StudentsRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $validator = $this->student->validate($request);
+        
+        if ($validator->fails()) {
+            $student = json_decode(json_encode($request->all()), FALSE);
+            $html = view('students._form', compact('student'))->withErrors($validator);
+            return response()->json([
+                'status' => 0,
+                'html' => $html->render()
+            ]);
+        }
         $this->student->findOrFail($id)->update($request->except('student_code'));
-        session()->flash("flash_message", "Chỉnh sửa thành công sinh viên " . $request->input("fullname"));
-        return redirect()->route('students.index');
+        return response()->json([
+            'status' => 1,
+            'message' =>'success'
+        ]);
     }
 
     /**
