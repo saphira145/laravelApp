@@ -5,12 +5,9 @@
         <group>
             <file>file:/C:/xampp/htdocs/laravelApp/resources/views/students/_form.blade.php</file>
             <file>file:/C:/xampp/htdocs/laravelApp/app/Http/routes.php</file>
-            <file>file:/C:/xampp/htdocs/laravelApp/resources/views/students/index.blade.php</file>
             <file>file:/C:/xampp/htdocs/laravelApp/app/Student.php</file>
             <file>file:/C:/xampp/htdocs/laravelApp/app/Http/Controllers/StudentsController.php</file>
-            <file>file:/C:/xampp/htdocs/laravelApp/public/output/all.js</file>
             <file>file:/C:/xampp/htdocs/laravelApp/config/app.php</file>
-            <file>file:/C:/xampp/htdocs/laravelApp/database/seeds/DatabaseSeeder.php</file>
             <file>file:/C:/xampp/htdocs/laravelApp/resources/views/students/Modal/_editStudent.blade.php</file>
             <file>file:/C:/xampp/htdocs/laravelApp/tests/AuthControllerTest.php</file>
             <file>file:/C:/xampp/htdocs/laravelApp/resources/views/students/tabledata.blade.php</file>

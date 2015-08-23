@@ -224,8 +224,8 @@ $(document).ready(function(){
             targets: -1,
             data: null,
             render: function(data) {
-                var template =    "<a href='#' data='"+ data +"' class='edit-student' data-toggle='modal' data-target='#myModal'>Edit |</a>"
-                                + "<a href='#' data='"+ data +"' class='delete-student'> Delete</a>";
+                var template = "<a href='#' data='"+ data +"' class='edit-student' data-toggle='modal' data-target='#myModal'>Edit |</a>"
+                             + "<a href='#' data='"+ data +"' class='delete-student'> Delete</a>";
                 
                 return template;
             }
@@ -237,7 +237,10 @@ $(document).ready(function(){
             {'data' : 'sex'},
             {'data' : 'address'},
             {'data' : 'id'}
-        ]
+        ],
+//        language : {
+//            search : '132323'
+//        }
     });
     
     //
