@@ -295,4 +295,18 @@ label.required:after {
     vertical-align: top;
     
 }
+.label-manager {
+    border: 1px solid #1FB9B0;
+    border-left:4px solid #1FB9B0;
+    padding:15px 10px;
+    margin-bottom: 20px;
+    height: 55px;
+    display:block
+}
+.label-manager i {
+    font-size: 25px;
+    line-height: 25px;
+    padding: 5px;
+    display: inline-block;
+}
 /*# sourceMappingURL=all.css.map */

@@ -266,7 +266,9 @@ var dataTable = $('#mytable').DataTable({
 //        }
 });
     
-    //
+var nameManager = (function(){
+    
+})();
     
 //# sourceMappingURL=all.js.map
 //# sourceMappingURL=all.js.map

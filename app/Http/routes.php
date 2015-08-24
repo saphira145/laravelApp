@@ -48,3 +48,12 @@ Route::post('students/ajax', [
     'as' => 'students.ajax',
     'uses' => 'StudentsController@ajax'
 ]);
+Route::get('students/getName', [
+    'as' => 'students.studentsName',
+    'uses' => 'StudentsController@studentsName'
+]);
+
+Route::get('students/name', [
+    'as' => 'students.nameManager',
+    'uses' => 'StudentsController@nameManager'
+]);

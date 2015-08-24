@@ -169,4 +169,13 @@ class StudentsController extends Controller
     public function listStudents() {
         return view('students.tabledata');
     }
+    
+    public function nameManager() {
+        return view('students.nameManager');
+    }
+    
+    public function studentsName() {
+        $fullname = $this->student->select('fullname')->skip(0)->take(20)->orderBy('updated_at', 'desc')->get();
+        return response()->json(['data' => $fullname]);
+    }
 }
