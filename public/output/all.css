@@ -286,7 +286,6 @@ label.required:after {
 }
 .sex-filter {
     margin: 0 0 20px;
-    padding: 0;
 }
 .sex-filter > li {
     display: inline-block;

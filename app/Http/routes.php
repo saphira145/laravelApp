@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect()->route('students.index');
+    return redirect()->route('students.listStudents');
 });
 Route::resource('students', 'StudentsController',[
     'except' => 'show'
@@ -40,9 +40,9 @@ Route::get('auth/logout', [
     'uses' => 'AuthController@logout'
 ]);
 
-Route::get('students/test', [
-    'as' => 'students.test',
-    'uses' => 'StudentsController@test'
+Route::get('students/listStudents', [
+    'as' => 'students.listStudents',
+    'uses' => 'StudentsController@listStudents'
 ]);
 Route::post('students/ajax', [
     'as' => 'students.ajax',

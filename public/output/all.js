@@ -1,3 +1,4 @@
+
 'use strict';
 
 // Search ajax
@@ -113,140 +114,160 @@ $("#create-student-form").validate({
     }
 });
 
-$(document).ready(function(){
-    var StudentManagement = (function() {
-        // variable
-        var $filter = $(".sex-filter");
-        var $checkbox = $filter.find("li");
-        var $body = $('body');
-        var $editStudentForm = $('#edit-student-form');
-        var $close = $('#close-student-modal');
-        var id; // Current Student ID
 
-        // Bind event
-        $checkbox.on('click', filter);
-        $body.on('click', '.delete-student', deleteStudent);
-        $body.on('click', '.edit-student', editStudent);
-        $body.on('click', '#save-student', saveStudent);
-        
-        function filter(event) {
-            if (event.target.tagName === 'LABEL') {
-                return;
+var StudentManagement = (function() {
+    // variable
+    var $filter = $(".sex-filter");
+    var $checkbox = $filter.find("li");
+    var $body = $('body');
+    var $editStudentForm = $('#edit-student-form');
+    var $close = $('#close-student-modal');
+    var id; // Current Student ID
+    var methodRequest; // Method request: PUT for update,  POST for new
+
+    // Bind event
+    $checkbox.on('click', filter);
+    $body.on('click', '.delete-student', deleteStudent);
+    $body.on('click', '.edit-student', editStudent);
+    $body.on('click', '#save-student', saveStudent);
+    $body.on('click', '#create-student', createStudent);
+
+    function filter(event) {
+        if (event.target.tagName === 'LABEL') {
+            return;
+        }
+        dataTable.ajax.reload();
+    }
+    function getCheckbox() {
+        return $checkbox;
+    }
+    function createStudent() {
+        var createUrl = '/students/create';
+        $.ajax({
+            url : createUrl,
+            type : 'GET',
+            success : function(response) {
+                $editStudentForm.html(response);
+                methodRequest = 'POST';
             }
-            dataTable.ajax.reload();
-        }
-        function getCheckbox() {
-            return $checkbox;
-        } 
-        function deleteStudent(event) {
-            event.preventDefault();
-            if (!confirm('Are you sure you want to delete'))
-                return;
-            
-            var deleteUrl = $(".delete-student").attr("data");
-            $.ajax({
-                'url' : deleteUrl,
-                'type' : 'DELETE',
-                'headers' : {
-                    'X-CSRF-Token' : $('#_token').val(),
-                },
-                success : function() {
-                    dataTable.ajax.reload(null, false);
-                }
-            });
-        };
-        
-        function editStudent(event) {
-            event.preventDefault();
-            id = $(event.target).attr("data");
-            
-            var editUrl = "/students/"+ id +"/edit";
-            $.ajax({
-                url : editUrl,
-                type : 'GET',
-                success : function(response) {
-                    $editStudentForm.html(response);
-                }
-            });
-        } 
+        });
+    }
 
-        function saveStudent() {
-            var data = $editStudentForm.serialize();
-            var saveUrl = '/students/'+ id;
-            $.ajax({
-                url : saveUrl,
-                type : 'PUT',
-                data : data,
-                headers : {
-                    'X-CSRF-Token' : $('#_token').val(),
-                },
-                success : function(response) {
-                    switch(response.status) {
-                        case 0:
-                            $editStudentForm.html(response.html);
-                            break;
-                        case 1:
-                        default:
-                            dataTable.ajax.reload(null, false);
-                            $close.trigger('click');
-                    }
-                }
-            });
-        }
-        
-        return {
-            getCheckbox : getCheckbox
-        };
-        
-    })();
-//
-    var dataTable = $('#mytable').DataTable({
-        processing : true,
-        serverSide : true,
-        ajax : {
-            url : '/students/ajax',
-            type : 'post',
+    function deleteStudent(event) {
+        event.preventDefault();
+        if (!confirm('Are you sure you want to delete'))
+            return;
+
+        var deleteUrl = $(".delete-student").attr("data");
+        $.ajax({
+            'url' : deleteUrl,
+            'type' : 'DELETE',
+            'headers' : {
+                'X-CSRF-Token' : $('#_token').val(),
+            },
+            success : function() {
+                dataTable.ajax.reload(null, false);
+            }
+        });
+    };
+
+    function editStudent(event) {
+        event.preventDefault();
+        id = $(event.target).attr("data");
+        var editUrl = "/students/"+ id +"/edit";
+
+        $.ajax({
+            url : editUrl,
+            type : 'GET',
+            success : function(response) {
+                $editStudentForm.html(response);
+                methodRequest = "PUT";
+            }
+        });
+    } 
+
+    function saveStudent() {
+        var data = $editStudentForm.serialize();
+        var saveUrl;
+        if (methodRequest === 'PUT')
+            saveUrl = '/students/'+ id;
+        if (methodRequest === 'POST')
+            saveUrl = '/students';
+        $.ajax({
+            url : saveUrl,
+            type : 'PUT',
+            data : data,
             headers : {
                 'X-CSRF-Token' : $('#_token').val()
             },
-            data : function(param) {
-                var filter = [];
-                var $checkbox = StudentManagement.getCheckbox();
-                $checkbox.each(function(){
-                    if ($(this).find('input').prop("checked")) {
-                        filter.push($(this).find('input').val());
-                    }
-                });
-                param.filter = filter;
+            beforeSend : function() {
+                this.type = methodRequest;
+            },
+            success : function(response) {
+                switch(response.status) {
+                    case 0:
+                        $editStudentForm.html(response.html);
+                        break;
+                    case 1:
+                    default:
+                        dataTable.ajax.reload(null, false);
+                        $close.trigger('click');
+                }
             }
+        });
+    }
+
+    return {
+        getCheckbox : getCheckbox
+    };
+
+})();
+//
+var dataTable = $('#mytable').DataTable({
+    processing : true,
+    serverSide : true,
+    ajax : {
+        url : '/students/ajax',
+        type : 'post',
+        headers : {
+            'X-CSRF-Token' : $('#_token').val()
         },
-        columnDefs: [{
-            targets: -1,
-            data: null,
-            render: function(data) {
-                var template = "<a href='#' data='"+ data +"' class='edit-student' data-toggle='modal' data-target='#myModal'>Edit |</a>"
-                             + "<a href='#' data='"+ data +"' class='delete-student'> Delete</a>";
-                
-                return template;
-            }
-        }],
-        columns : [
-            {'data' : 'student_code'},
-            {'data' : 'fullname'},
-            {'data' : 'birthday'},
-            {'data' : 'sex'},
-            {'data' : 'address'},
-            {'data' : 'id'}
-        ],
+        data : function(param) {
+            var filter = [];
+            var $checkbox = StudentManagement.getCheckbox();
+            $checkbox.each(function(){
+                if ($(this).find('input').prop("checked")) {
+                    filter.push($(this).find('input').val());
+                }
+            });
+            param.filter = filter;
+        }
+    },
+    columnDefs: [{
+        targets: -1,
+        data: null,
+        render: function(data) {
+            var template = "<a href='#' data='"+ data +"' class='edit-student' data-toggle='modal' data-target='#myModal'>Edit |</a>"
+                         + "<a href='#' data='"+ data +"' class='delete-student'> Delete</a>";
+
+            return template;
+        }
+    }],
+    columns : [
+        {'data' : 'student_code'},
+        {'data' : 'fullname'},
+        {'data' : 'birthday'},
+        {'data' : 'sex'},
+        {'data' : 'address'},
+        {'data' : 'id'}
+    ],
 //        language : {
 //            search : '132323'
 //        }
-    });
+});
     
     //
     
-});
-
 //# sourceMappingURL=all.js.map
 //# sourceMappingURL=all.js.map
 //# sourceMappingURL=all.js.map

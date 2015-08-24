@@ -21,7 +21,7 @@
     <div class="col-md-6">
         <div class="form-group internal">
             <div class="col-md-11">
-                <input type="text" class="form-control" id="fullname" name="fullname" value="{{ $student->fullname }}">
+                <input type="text" class="form-control" id="fullname" name="fullname" @if(isset($student)) value="{{ $student->fullname }}" @endif>
                 @if ($errors->has('fullname')) <label class="error">{{ $errors->first('fullname') }}</label> @endif
             </div>
         </div>
@@ -33,7 +33,7 @@
     <div class="col-md-6">
         <div class="form-group internal">
             <div class="col-md-11">
-                <input type="date" class="form-control" id="birthday" name="birthday" value="{{ $student->birthday }}">
+                <input type="date" class="form-control" id="birthday" name="birthday" @if (isset($student)) value="{{ $student->birthday }}" @endif>
                 @if ($errors->has('birthday')) <label class="error">{{ $errors->first('birthday') }}</label> @endif
             </div>
         </div>
@@ -44,7 +44,7 @@
     <div class="col-md-6">
         <div class="form-group internal">
             <div class="col-md-11">
-                <input type="text" class="form-control" id="address" name="address" value="{{ $student->address }}">
+                <input type="text" class="form-control" id="address" name="address" @if (isset($student)) value="{{ $student->address }}" @endif>
                 @if ($errors->has('address')) <label class="error">{{ $errors->first('address') }}</label> @endif
             </div>
         </div>
@@ -58,7 +58,7 @@
             <div class="col-md-11">
                 <select class="form-control" id="sex" name="sex">
                     @foreach($sex as $key => $value)
-                        <option value="{{ $key }}" @if ($student->sex == $key) selected @endif>{{ $value }}</option>
+                        <option value="{{ $key }}" @if (isset($student) && $student->sex == $key) selected @endif >{{ $value }}</option>
                     @endforeach
                 </select>
                 @if ($errors->has('sex')) <label class="error">{{ $errors->first('sex') }}</label> @endif

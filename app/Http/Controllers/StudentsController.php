@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StudentsRequest;
 use App\Student;
-use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -44,7 +42,7 @@ class StudentsController extends Controller
      */
     public function create()
     {
-        return view('students.create');
+        return view('students._form');
     }
 
     /**
@@ -53,11 +51,24 @@ class StudentsController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(StudentsRequest $request)
+    public function store(Request $request)
     {
+        $validate = $this->student->validate($request, ['student_code' => 'required']);
+        
+        if ($validate->fails()) {
+            $html = view('students._form')->withErrors($validate);
+            return response()->json([
+                'status' => 0,
+                'html'  => $html->render()
+            ]);
+        }
+        
         $this->student->create($request->all());
-        session()->flash("flash_message", "Thêm mới thành công sinh viên " . $request->input("fullname"));
-        return redirect()->route('students.index');
+        return response()->json([
+            'status' => 1
+        ]);
+//        session()->flash("flash_message", "Thêm mới thành công sinh viên " . $request->input("fullname"));
+//        return redirect()->route('students.index');
     }
 
     /**
@@ -155,7 +166,7 @@ class StudentsController extends Controller
         return response()->json($json);
     }
     
-    public function test() {
+    public function listStudents() {
         return view('students.tabledata');
     }
 }

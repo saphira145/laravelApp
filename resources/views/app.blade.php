@@ -33,11 +33,12 @@
             
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
         <script src="{{ URL::asset('js/jquery.sticky.js') }}"></script>
         <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
         <script src="{{ URL::asset('output/all.js') }}"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
+        
         
     </body>
 </html>

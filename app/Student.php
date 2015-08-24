@@ -144,13 +144,16 @@ class Student extends Model
         return $gender[$index];
     }
     
-    public function validate($request) {
+    public function validate($request, $extra = []) {
         $rules = [
             'fullname' => 'required',
             'birthday' => 'required|date',
             'sex'      => 'required',
             'address'  => 'required'
         ];
+        if (!empty($extra)) {
+            $rules = array_merge($rules, $extra);
+        }
         
 //        $messages = [
 //            'required' => 'Field is required',
