@@ -7,10 +7,12 @@
             <file>file:/C:/xampp/htdocs/laravelApp/app/Http/routes.php</file>
             <file>file:/C:/xampp/htdocs/laravelApp/app/Student.php</file>
             <file>file:/C:/xampp/htdocs/laravelApp/app/Http/Controllers/StudentsController.php</file>
+            <file>file:/C:/xampp/htdocs/laravelApp/public/output/all.js</file>
             <file>file:/C:/xampp/htdocs/laravelApp/config/app.php</file>
             <file>file:/C:/xampp/htdocs/laravelApp/resources/views/students/Modal/_editStudent.blade.php</file>
+            <file>file:/C:/xampp/htdocs/laravelApp/resources/views/students/nameManager.blade.php</file>
+            <file>file:/C:/xampp/htdocs/laravelApp/public/output/all.css</file>
             <file>file:/C:/xampp/htdocs/laravelApp/tests/AuthControllerTest.php</file>
-            <file>file:/C:/xampp/htdocs/laravelApp/resources/views/students/tabledata.blade.php</file>
         </group>
     </open-files>
 </project-private>
