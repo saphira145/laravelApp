@@ -64,9 +64,7 @@ class StudentsController extends Controller
         }
         
         $this->student->create($request->all());
-        return response()->json([
-            'status' => 1
-        ]);
+        return response()->json(['status' => 1]);
 //        session()->flash("flash_message", "Thêm mới thành công sinh viên " . $request->input("fullname"));
 //        return redirect()->route('students.index');
     }
@@ -175,7 +173,30 @@ class StudentsController extends Controller
     }
     
     public function studentsName() {
-        $fullname = $this->student->select('fullname')->skip(0)->take(20)->orderBy('updated_at', 'desc')->get();
-        return response()->json(['data' => $fullname]);
+        $fullname = $this->student->select(['fullname', 'id'])->skip(0)->take(20)->orderBy('updated_at', 'desc')->get();
+        return response()->json($fullname);
+    }
+    
+    public function saveName(Request $request){
+        $fullname = $request->input('fullname');
+        $student = $this->student->create(['fullname' => $fullname]);
+        return response()->json([
+            'data' => ['id' => $student->id, 'fullname' => $fullname],
+            'status' => 1,
+        ]);
+    }
+    public function deleteName(Request $request) {
+        $id = $request->input('id');
+        $this->student->findOrFail($id)->delete();
+        return response()->json(['status' => 1]);
+    }
+    public function editName(Request $request) {
+        $id = $request->input('id');
+        $fullname = $request->input('fullname');
+        $this->student->findOrFail($id)->update(['fullname' => $fullname]);
+        return response()->json([
+            'status' => 1,
+            'fullname' => $fullname
+        ]);
     }
 }
