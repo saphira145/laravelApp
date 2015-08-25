@@ -335,3 +335,16 @@ label.required:after {
     border: 1px solid red;
     border-left: 4px solid red;
 }
+.blur-loading::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: "";
+    background: rgba(255, 255, 255, 0.45) url("../images/ajax-loader.gif") no-repeat center center scroll;
+    background-attachment: fixed;
+}
+.relative-pos {
+    position: relative;
+}

@@ -267,6 +267,8 @@ var dataTable = $('#mytable').DataTable({
 });
     
 var nameManager = (function() {
+    var $manageName = $(".manage-name");
+    var $nameList = $manageName.find(".name-list");
     var $addName = $(".add-name");
     var $nameInput = $addName.find("input");
     var url = '/students/getName';
@@ -278,6 +280,7 @@ var nameManager = (function() {
     $body.on('click','.delete-name', deleteName);
     $body.on('click', '.edit-name', editName);
     $body.on('keyup', '.search-name', searchName);
+    $body.on('click', '.cancel-name', toggleFocus);
     
     $.ajax({
         type : 'GET',
@@ -291,7 +294,7 @@ var nameManager = (function() {
     function renderList(data) {
         for(var length=data.length, i=length-1; i>= 0; i--) {
             var element = render(data[i]);
-            $addName.after(element);
+            $nameList.prepend(element);
         }
     }
     function searchName(event) {
@@ -310,18 +313,26 @@ var nameManager = (function() {
         }
         return result;
     }
-    function editName(event) {
+    function toggleFocus(event) {
         event.preventDefault();
         var $element = $(event.target).parent().parent();
         var $nameLabel = $element.find('span');
         var $editInput = $element.find('input');
         var $cancel = $element.find('.cancel-name');
         
-        // Change background input when on edit mode
         $element.toggleClass("focus-edit");
         $nameLabel.toggleClass('hide');
         $cancel.toggleClass('hide');
         $editInput.toggleClass('hide').focus();
+    }
+    function editName(event) {
+        event.preventDefault();
+        var $element = $(event.target).parent().parent();
+        var $nameLabel = $element.find('span');
+        var $editInput = $element.find('input');
+        
+        // Focus input when on edit mode
+        toggleFocus(event);
 
         var id = $(event.target).parent('a').attr('id'); 
         
@@ -343,11 +354,17 @@ var nameManager = (function() {
                     id : id,
                     fullname : fullname
                 },
+                beforeSend : function() {
+                    $nameList.addClass('relative-pos blur-loading');
+                },
                 success : function(response) {
                     if (response.status === 1) {
                         $nameLabel.text(response.fullname);
                         refreshData(id, fullname, 'edit');
                     }
+                },
+                complete : function() {
+                    $nameList.removeClass('relative-pos blur-loading');
                 }
             });
         }
@@ -366,12 +383,18 @@ var nameManager = (function() {
             headers : {
                 'X-CSRF-Token' : $('#_token').val()
             }, 
+            beforeSend : function() {
+                $nameList.addClass('relative-pos blur-loading');
+            },
             success : function(response) {
                 if (response.status === 1) {
                     $(event.target).parent().parent().remove();
                     $(event.target).parent('.label-manager').remove();
                     refreshData(id, null, 'delete');
                 }
+            },
+            complete : function() {
+                $nameList.removeClass('relative-pos blur-loading');
             }
         });
     }
@@ -387,13 +410,19 @@ var nameManager = (function() {
             headers : {
                 'X-CSRF-Token' : $('#_token').val()
             },
-           success: function(response) {
+            beforeSend : function() {
+                $nameList.addClass('relative-pos blur-loading');
+            },
+            success: function(response) {
                 if (response.status === 1) {
                     var element = render(response.data);
-                    $addName.after(element);
+                    $nameList.prepend(element);
                     refreshData(response.data.id, response.data.fullname, 'create');
                 }
-           }
+            },
+            complete : function() {
+                $nameList.removeClass('relative-pos blur-loading');
+            }
        });
     }
     

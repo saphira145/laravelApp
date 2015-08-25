@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-<div class="panel panel-primary">
+<div class="panel panel-primary manage-name">
     <div class="panel-heading">
         <h4>Heading</h4>
         <div class="col-xs-5 pull-right">
@@ -14,6 +14,10 @@
             <span class="input-group-btn" id="basic-addon1">
                 <button class="btn save-name"><i class="fa fa-plus"></i>Save</button>
             </span>
+        </div>
+        
+        <div class="name-list">
+            
         </div>
         <!--list name render by js-->
         
