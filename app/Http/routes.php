@@ -14,9 +14,9 @@
 Route::get('/', function () {
     return redirect()->route('students.listStudents');
 });
-Route::resource('students', 'StudentsController',[
-    'except' => 'show'
-]);
+//Route::resource('students', 'StudentsController',[
+//    'except' => 'show'
+//]);
 
 Route::get('students/searchAndPaginateAjax', [
     'as' => 'students.searchAndPaginateAjax',
@@ -56,4 +56,16 @@ Route::get('students/getName', [
 Route::get('students/name', [
     'as' => 'students.nameManager',
     'uses' => 'StudentsController@nameManager'
+]);
+Route::post('students/saveName', [
+    'as' => 'students.saveName',
+    'uses' => 'StudentsController@saveName'
+]);
+Route::delete('students/deleteName', [
+    'as' => 'students.deleteName',
+    'uses' => 'StudentsController@deleteName'
+]);
+Route::put('students/editName', [
+    'as' => 'students.editName',
+    'uses' => 'StudentsController@editName'
 ]);

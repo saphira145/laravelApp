@@ -5,7 +5,7 @@
 @extends('app')
 
 @section('content')
-<input id="_token" value="{{ session()->getToken() }}" class="hidden">
+
 
 <div class="row">
     <ul class="sex-filter col-xs-8">

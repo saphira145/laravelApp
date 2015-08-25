@@ -266,8 +266,144 @@ var dataTable = $('#mytable').DataTable({
 //        }
 });
     
-var nameManager = (function(){
+var nameManager = (function() {
+    var $addName = $(".add-name");
+    var $nameInput = $addName.find("input");
+    var url = '/students/getName';
+    var $body = $("body");    
+    var data;
     
+    // Bind Events
+    $body.on('click', '.save-name', saveName);
+    $body.on('click','.delete-name', deleteName);
+    $body.on('click', '.edit-name', editName);
+    $body.on('keyup', '.search-name', searchName);
+    
+    $.ajax({
+        type : 'GET',
+        url : url,
+        success : function(response) {
+            data = response;
+            renderList(data);
+            
+        }
+    });
+    function renderList(data) {
+        for(var length=data.length, i=length-1; i>= 0; i--) {
+            var element = render(data[i]);
+            $addName.after(element);
+        }
+    }
+    function searchName(event) {
+        var $labelManager = $('.label-manager');
+        var searchKey = $(event.target).val();
+        var result = processSearchData(searchKey, data);
+        $labelManager.remove();
+        renderList(result);
+    }
+    function processSearchData(searchKey, data) {
+        var result = [];
+        for(var i=0, length=data.length; i<length; i++) {
+            if (data[i].fullname.toLowerCase().indexOf(searchKey.toLowerCase()) > -1) {
+                result.push(data[i]);
+            }
+        }
+        return result;
+    }
+    function editName(event) {
+        event.preventDefault();
+        var $element = $(event.target).parent().parent();
+        var $nameLabel = $element.find('span');
+        var $editInput = $element.find('input');
+        var $cancel = $element.find('.cancel-name');
+        
+        // Change background input when on edit mode
+        $element.toggleClass("focus-edit");
+        $nameLabel.toggleClass('hide');
+        $cancel.toggleClass('hide');
+        $editInput.toggleClass('hide').focus();
+
+        var id = $(event.target).parent('a').attr('id'); 
+        
+        if (!$element.find("input").hasClass("hide")) {
+            $editInput.val($nameLabel.text());
+        }
+
+        if($element.find("input").hasClass("hide")) {
+            var url = "/students/editName";
+            var fullname = $editInput.val();
+            
+            $.ajax({
+                url : url,
+                type : 'PUT',
+                headers : {
+                    'X-CSRF-Token' : $('#_token').val()
+                },
+                data : {
+                    id : id,
+                    fullname : fullname
+                },
+                success : function(response) {
+                    if (response.status === 1) {
+                        $nameLabel.text(response.fullname);
+                    }
+                }
+            });
+        }
+        
+    }
+    function deleteName(event) {
+        event.preventDefault();
+        var url = '/students/deleteName';
+        var id = $(event.target).parent('a').attr('id');
+        $.ajax({
+            url : url,
+            type : 'DELETE',
+            data : {
+                id : id
+            },
+            headers : {
+                'X-CSRF-Token' : $('#_token').val()
+            }, 
+            success : function(response) {
+                if (response.status === 1) {
+                    $(event.target).parent().parent().remove();
+                    $(event.target).parent('.label-manager').remove();
+                }
+            }
+        });
+    }
+    function saveName() {
+       var fullname = $nameInput.val();
+       var url = '/students/saveName';
+       $.ajax({
+            url : url,
+            type : 'POST',
+            data : {
+                fullname : fullname
+            },
+            headers : {
+                'X-CSRF-Token' : $('#_token').val()
+            },
+           success: function(response) {
+                if (response.status === 1) {
+                    var element = render(response.data);
+                    $addName.after(element);
+                }
+           }
+       });
+    }
+    
+    function render(data) {
+        var template = '<label class="xs-col-12 label-manager">'
+                        + '<input type="text" id="editInput" class="hide" placeholder="Type new name">'
+                        + '<span>'+ data.fullname +'</span>'
+                        + '<a href="#" class="pull-right delete-name" id='+ data.id +'><i class="fa fa-trash-o"></i></a>'
+                        + '<a href="#" class="pull-right cancel-name hide"><i class="fa fa-ban"></i></a>'
+                        + '<a href="#" class="pull-right edit-name" id='+ data.id +'><i class="fa fa-pencil-square-o"></i></a>'
+                     + '</label>';
+        return template;              
+    }
 })();
     
 //# sourceMappingURL=all.js.map

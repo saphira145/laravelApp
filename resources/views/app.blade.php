@@ -10,6 +10,7 @@
         
     </head>
     <body>
+        <input id="_token" value="{{ session()->getToken() }}" class="hidden">
         <header>
 <!--            <div class="header-top">
                
