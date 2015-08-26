@@ -270,11 +270,9 @@ var nameManager = (function() {
     var $manageName = $(".manage-name");
     var $nameList = $manageName.find(".name-list");
     var $addName = $(".add-name");
-    var $nameInput = $addName.find("input");
-    var url = '/students/getName';
     var $body = $("body");    
-    var data;
-    var length = 0;
+    var data = [];
+    var limit = 20;
     var offset = 0;
     
     // Bind Events
@@ -283,33 +281,52 @@ var nameManager = (function() {
     $body.on('click', '.edit-name', editName);
     $body.on('keyup', '.search-name', searchName);
     $body.on('click', '.cancel-name', toggleFocus);
-    $(window).bind('scroll', bindScroll);
     
-    $.ajax({
-        type : 'GET',
-        url : url,
-        success : function(response) {
-            data = response;
-            renderList(data);
-        }
-    });
+    //Get Fullname List
+    getNameList();
+    
+    function getNameList() {
+        var url = '/students/getName';
+        $.ajax({
+            type : 'POST',
+            url : url,
+            data : {
+                limit : limit,
+                offset : offset
+            },
+            headers : {
+                'X-CSRF-Token' : $('#_token').val()
+            },
+            beforeSend : function() {
+                $nameList.addClass('relative-pos blur-loading');
+            },
+            success : function(response) {
+                data = data.concat(response);
+                renderList(response);
+                offset +=limit;
+            },
+            complete : function() {
+                $nameList.removeClass('relative-pos blur-loading');
+                $(window).bind('scroll', bindScroll);
+                console.log(1);
+            }
+        });
+    }
+    
     function renderList(data) {
-        for(var length=data.length, i=length-1; i>= 0; i--) {
+        for(var length=data.length, i=0; i < length; i++) {
             var element = render(data[i]);
-            $nameList.prepend(element);
+            $nameList.append(element);
         }
     }
     function bindScroll() {
         if ($(window).height() + $(window).scrollTop() > $(document).height() - 100) {
             loadMore();
-            $(window).unbind('scroll');
         }
     }
     function loadMore() {
-        var url = "/students/"
-        $.ajax({
-            
-        });
+        getNameList();
+        $(window).unbind('scroll');
     }
     function searchName(event) {
         var $labelManager = $('.label-manager');
@@ -414,6 +431,7 @@ var nameManager = (function() {
         });
     }
     function saveName() {
+       var $nameInput = $addName.find("input");
        var fullname = $nameInput.val();
        var url = '/students/saveName';
        $.ajax({
@@ -444,16 +462,18 @@ var nameManager = (function() {
     function refreshData(id, fullname, action) {
         switch(action) {
             case 'edit' :
-                for(var i=0, length=data.length; i<length-1; i++) {
+                for(var i=0, length=data.length; i<length; i++) {
                     if (data[i].id == id) {
                         data[i].fullname = fullname;
+                        break;
                     }
                 }
                 break;
             case 'delete' :
-                for(var i=0, length=data.length; i<length-1; i++) {
+                for(var i=0, length=data.length; i<length; i++) {
                     if (data[i].id == id) {
                         data.splice(i, 1);
+                        break;
                     }
                 }
                 break;

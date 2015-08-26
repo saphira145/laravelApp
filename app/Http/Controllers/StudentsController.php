@@ -172,8 +172,10 @@ class StudentsController extends Controller
         return view('students.nameManager');
     }
     
-    public function studentsName() {
-        $fullname = $this->student->select(['fullname', 'id'])->skip(0)->take(20)->orderBy('updated_at', 'desc')->get();
+    public function studentsName(Request $request) {
+        $offset = $request->input('offset');
+        $limit = $request->input('limit');
+        $fullname = $this->student->select(['fullname', 'id'])->skip($offset)->take($limit)->orderBy('updated_at', 'desc')->get();
         return response()->json($fullname);
     }
     

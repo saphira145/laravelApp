@@ -48,7 +48,7 @@ Route::post('students/ajax', [
     'as' => 'students.ajax',
     'uses' => 'StudentsController@ajax'
 ]);
-Route::get('students/getName', [
+Route::post('students/getName', [
     'as' => 'students.studentsName',
     'uses' => 'StudentsController@studentsName'
 ]);
