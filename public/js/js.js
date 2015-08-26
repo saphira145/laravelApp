@@ -274,6 +274,8 @@ var nameManager = (function() {
     var url = '/students/getName';
     var $body = $("body");    
     var data;
+    var length = 0;
+    var offset = 0;
     
     // Bind Events
     $body.on('click', '.save-name', saveName);
@@ -281,6 +283,7 @@ var nameManager = (function() {
     $body.on('click', '.edit-name', editName);
     $body.on('keyup', '.search-name', searchName);
     $body.on('click', '.cancel-name', toggleFocus);
+    $(window).bind('scroll', bindScroll);
     
     $.ajax({
         type : 'GET',
@@ -288,7 +291,6 @@ var nameManager = (function() {
         success : function(response) {
             data = response;
             renderList(data);
-            
         }
     });
     function renderList(data) {
@@ -296,6 +298,18 @@ var nameManager = (function() {
             var element = render(data[i]);
             $nameList.prepend(element);
         }
+    }
+    function bindScroll() {
+        if ($(window).height() + $(window).scrollTop() > $(document).height() - 100) {
+            loadMore();
+            $(window).unbind('scroll');
+        }
+    }
+    function loadMore() {
+        var url = "/students/"
+        $.ajax({
+            
+        });
     }
     function searchName(event) {
         var $labelManager = $('.label-manager');
@@ -313,6 +327,7 @@ var nameManager = (function() {
         }
         return result;
     }
+    
     function toggleFocus(event) {
         event.preventDefault();
         var $element = $(event.target).parent().parent();

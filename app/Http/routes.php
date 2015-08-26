@@ -22,10 +22,10 @@ Route::get('students/searchAndPaginateAjax', [
     'as' => 'students.searchAndPaginateAjax',
     'uses' => 'StudentsController@searchAndPaginateAjax'
 ]);
-//Route::controllers([
-//   'auth' => 'Auth\AuthController',
-//   'password' => 'Auth\PasswordController'
-//]);
+Route::controllers([
+   'auth' => 'Auth\AuthController',
+   'password' => 'Auth\PasswordController'
+]);
 
 Route::get('auth/login', [
     'as' => 'auth.getLogin',
