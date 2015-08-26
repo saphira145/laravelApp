@@ -346,6 +346,7 @@ var nameManager = (function() {
                 success : function(response) {
                     if (response.status === 1) {
                         $nameLabel.text(response.fullname);
+                        refreshData(id, fullname, 'edit');
                     }
                 }
             });
@@ -369,6 +370,7 @@ var nameManager = (function() {
                 if (response.status === 1) {
                     $(event.target).parent().parent().remove();
                     $(event.target).parent('.label-manager').remove();
+                    refreshData(id, null, 'delete');
                 }
             }
         });
@@ -389,11 +391,34 @@ var nameManager = (function() {
                 if (response.status === 1) {
                     var element = render(response.data);
                     $addName.after(element);
+                    refreshData(response.data.id, response.data.fullname, 'create');
                 }
            }
        });
     }
     
+    function refreshData(id, fullname, action) {
+        switch(action) {
+            case 'edit' :
+                for(var i=0, length=data.length; i<length; i++) {
+                    if (data[i].id == id) {
+                        data[i].fullname = fullname;
+                    }
+                }
+                break;
+            case 'delete' :
+                for(var i=0, length=data.length; i<length; i++) {
+                    if (data[i].id == id) {
+                        data.splice(i, 1);
+                    }
+                }
+                break;
+            case 'create' :
+            default :
+                data.unshift({id : id, fullname : fullname});
+                
+        }
+    }
     function render(data) {
         var template = '<label class="xs-col-12 label-manager">'
                         + '<input type="text" id="editInput" class="hide" placeholder="Type new name">'
@@ -406,7 +431,5 @@ var nameManager = (function() {
     }
 })();
     
-//# sourceMappingURL=all.js.map
-//# sourceMappingURL=all.js.map
-//# sourceMappingURL=all.js.map
+
 //# sourceMappingURL=all.js.map
