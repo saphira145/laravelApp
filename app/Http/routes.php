@@ -14,9 +14,9 @@
 Route::get('/', function () {
     return redirect()->route('students.listStudents');
 });
-//Route::resource('students', 'StudentsController',[
-//    'except' => 'show'
-//]);
+Route::resource('students', 'StudentsController',[
+    'except' => 'show'
+]);
 
 Route::get('students/searchAndPaginateAjax', [
     'as' => 'students.searchAndPaginateAjax',

@@ -304,11 +304,10 @@ var nameManager = (function() {
                 data = data.concat(response);
                 renderList(response);
                 offset +=limit;
+                $(window).bind('scroll', bindScroll);
             },
             complete : function() {
                 $nameList.removeClass('relative-pos blur-loading');
-                $(window).bind('scroll', bindScroll);
-                console.log(1);
             }
         });
     }

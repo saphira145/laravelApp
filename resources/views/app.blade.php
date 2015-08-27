@@ -38,6 +38,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.6/js/jquery.dataTables.min.js"></script>
         <script src="{{ URL::asset('js/jquery.sticky.js') }}"></script>
+        <script src="{{ URL::asset('js/jquery-sortable.js') }}"></script>
         <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
         <script src="{{ URL::asset('js/js.js') }}"></script>
         
