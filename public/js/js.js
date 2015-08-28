@@ -493,4 +493,64 @@ var nameManager = (function() {
         return template;              
     }
 })();
+
+
+$('.element').draggable({
+
+    helper: "clone",
+    revert: 'invalid',
+    start : function() {
+  
+    },
+    drag: function () {
+
+    },
+    stop: function (event, ui) {
+        
+    }
+});
+
+$("#publisher").droppable({
+    tolerance : 'fit',
+    accept: '.publisher',
+    
+    drop: function (event, ui) {
+        ui.draggable.detach().prependTo($(this));
+    }
+
+});
+$("#editor").droppable({
+    tolerance : 'fit',
+    accept: '.editor',
+    
+    drop: function (event, ui) {
+        ui.draggable.detach().prependTo($(this));
+    }
+
+});
+$("#un-assign").droppable({
+    tolerance : 'fit',
+    accept: '.element',
+    
+    drop: function (event, ui) {
+        ui.draggable.detach().prependTo($(this));
+    }
+
+});
+
+$('#operator').droppable({
+    tolerance : 'fit',
+    accept: '.operator',
+    drop: function (event, ui) {
+        ui.draggable.detach().prependTo($(this));
+    }
+
+});
+$('#publisher, #editor, #operator').sortable();
+
+var $editor = $("#editor");
+console.log($editor.children(".editor").length);
+
+
+
     

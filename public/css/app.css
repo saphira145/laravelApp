@@ -297,11 +297,10 @@ label.required:after {
     margin-bottom: 20px;
     height: 50px;
     display:block;
-    line-height: 50px;
 }
 .label-manager i {
     font-size: 18px;
-    padding: 5px;
+    padding: 0 5px;
     display: inline-block;
 }
 .panel-primary>.panel-heading {
@@ -318,7 +317,7 @@ label.required:after {
     padding: 2px 10px 2px 5px;
 }
 .label-manager span {
-    
+    line-height: 50px;
 }
 .label-manager input {
     width:50%;
@@ -347,4 +346,62 @@ label.required:after {
 }
 .relative-pos {
     position: relative;
+}
+.label-manager a {
+    line-height: 50px;
+    height: 50px;
+    display: block;
+}
+.label-manager i {
+    line-height: 50px;
+    height: 50px;
+    display: block;
+}
+
+#publisher {
+    border:10px solid #BBBBFF;
+    height:auto;
+    min-height:100px;
+    width:240px;
+    padding:20px;
+}
+#editor {
+    border:10px solid #BBFFBB;
+    height :auto;
+    min-height:50px;
+    width: 220px;
+    padding:20px;
+    z-index: 1;
+}
+#operator {
+    border:10px solid red;
+    height :auto;
+    min-height:100px;
+    width: 200px;
+    padding:20px;
+    z-index: 2;
+}
+.element {
+    font-size:12px;
+    width:70px;
+
+    background:yellow;
+    display:inline-block;
+    margin:2px;
+    box-sizing:border-box;
+}
+#un-assign {
+    width:200px;
+    min-height: 100px;
+    height: auto;
+    border:1px solid blue;
+}
+.publisher {
+    background: #BBBBFF;
+}
+.editor {
+    background: #BBFFBB;
+}
+.operator {
+    background: red;
 }
