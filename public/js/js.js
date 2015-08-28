@@ -503,10 +503,10 @@ $('.element').draggable({
   
     },
     drag: function () {
-
+        
     },
     stop: function (event, ui) {
-        
+        console.log($(this).parent());
     }
 });
 
@@ -543,6 +543,9 @@ $('#operator').droppable({
     accept: '.operator',
     drop: function (event, ui) {
         ui.draggable.detach().prependTo($(this));
+    },
+    over : function() {
+        $("#editor").droppable('disable')
     }
 
 });
