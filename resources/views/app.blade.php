@@ -2,8 +2,8 @@
 <html>
     <head>
         <title>title</title>
-        <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}"/>
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}"/>
+        <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}"/>
         <link rel="stylesheet" href="{{ URL::asset('css/font-awesome.min.css') }}"/>
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,7 +26,7 @@
             @endif
         </header>
         
-        <div class="container main">
+        <div class=" main">
             
             @yield('content')
             

@@ -3,9 +3,51 @@
 @section('content')
 
 <div id='un-assign'>
-    <div class="element ui-state-default publisher" id="1">publisher 1</div>
-    <div class="element ui-state-default editor " id="2">publisher 2</div>
-    <div class="element ui-state-default operator" id="3">publisher 3</div>
+    <div class="element ui-state-default publisher" id="1">
+        <i class="fa fa-user"></i>
+        <span>publisher 1</span>
+    </div>
+    <div class="element ui-state-default editor" id="1">
+        <i class="fa fa-user"></i>
+        <span>publisher 1</span>
+    </div><div class="element ui-state-default publisher" id="1">
+        <i class="fa fa-user"></i>
+        <span>publisher 1</span>
+    </div>
+    <div class="element ui-state-default editor" id="1">
+        <i class="fa fa-user"></i>
+        <span>publisher 1</span>
+    </div>
+    <div class="element ui-state-default publisher" id="1">
+        <i class="fa fa-user"></i>
+        <span>publisher 1</span>
+    </div><div class="element ui-state-default publisher" id="1">
+        <i class="fa fa-user"></i>
+        <span>publisher 1</span>
+    </div><div class="element ui-state-default operator" id="1">
+        <i class="fa fa-user"></i>
+        <span>publisher 1</span>
+    </div><div class="element ui-state-default publisher" id="1">
+        <i class="fa fa-user"></i>
+        <span>publisher 1</span>
+    </div><div class="element ui-state-default editor" id="1">
+        <i class="fa fa-user"></i>
+        <span>publisher 1</span>
+    </div>
+    <div class="element ui-state-default publisher" id="1">
+        <i class="fa fa-user"></i>
+        <span>publisher 1</span>
+    </div>
+    <div class="element ui-state-default operator" id="1">
+        <i class="fa fa-user"></i>
+        <span>publisher 1</span>
+    </div>
+    
+    
+    
+    
+    
+    
 </div>
 
 <div id="publisher" style="font-size:0">
