@@ -500,59 +500,69 @@ $('.element').draggable({
     helper: "clone",
     revert: 'invalid',
     start : function() {
-  
+        
     },
     drag: function () {
         
     },
     stop: function (event, ui) {
-        console.log($(this).parent());
+
     }
 });
 
 $("#publisher").droppable({
     tolerance : 'fit',
     accept: '.publisher',
-    
+    greedy : true,
     drop: function (event, ui) {
         ui.draggable.detach().prependTo($(this));
+    },
+    over : function() {
+
     }
 
 });
 $("#editor").droppable({
     tolerance : 'fit',
     accept: '.editor',
+    greedy : true,
     
     drop: function (event, ui) {
         ui.draggable.detach().prependTo($(this));
-    }
-
-});
-$("#un-assign").droppable({
-    tolerance : 'fit',
-    accept: '.element',
+    },
     
-    drop: function (event, ui) {
-        ui.draggable.detach().prependTo($(this));
-    }
 
 });
 
 $('#operator').droppable({
     tolerance : 'fit',
     accept: '.operator',
+    greedy : true,
     drop: function (event, ui) {
         ui.draggable.detach().prependTo($(this));
     },
     over : function() {
-        $("#editor").droppable('disable')
+    }
+
+});
+
+$("#un-assign").droppable({
+    tolerance : 'fit',
+    accept: '.element',
+    greedy : true,
+    drop: function (event, ui) {
+        ui.draggable.detach().prependTo($(this));
     }
 
 });
 $('#publisher, #editor, #operator').sortable();
 
 var $editor = $("#editor");
-console.log($editor.children(".editor").length);
+var editor;
+var editorChildLength = $editor.children(".editor").length;
+$editor.find(".editor").each(function(index) {
+    var obj =  {  } 
+})
 
 
 

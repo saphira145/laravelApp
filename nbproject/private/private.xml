@@ -10,6 +10,7 @@
             <file>file:/C:/xampp/htdocs/laravelApp/config/app.php</file>
             <file>file:/C:/xampp/htdocs/laravelApp/resources/views/students/Modal/_editStudent.blade.php</file>
             <file>file:/C:/xampp/htdocs/laravelApp/resources/views/students/nameManager.blade.php</file>
+            <file>file:/C:/xampp/htdocs/laravelApp/resources/views/organization/index.blade.php</file>
             <file>file:/C:/xampp/htdocs/laravelApp/tests/AuthControllerTest.php</file>
             <file>file:/C:/xampp/htdocs/laravelApp/public/css/app.css</file>
         </group>
