@@ -567,16 +567,6 @@ $editor.find(".editor").each(function(index) {
 })
 
 
-
-var Organization = (function() {
-    var groupContainer = $(".group-container");
-    render();
-    function render() {
-        Publisher.render(groups);
-    }
-    
-})();
-
 var Publisher = (function(){
     
     function render(groups) {
@@ -587,4 +577,16 @@ var Publisher = (function(){
         render : render
     };
 })();
+
+var Organization = (function() {
+    var groupContainer = $(".group-container");
+    
+    render();
+    function render() {
+        Publisher.render(groups);
+    }
+    
+})();
+
+
     
