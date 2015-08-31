@@ -499,8 +499,8 @@ $('.element').draggable({
 
     helper: "clone",
     revert: 'invalid',
-    start : function() {
-        
+    start : function(event, ui) {
+        console.log($(this).parents(".group").attr("id"));
     },
     drag: function () {
         
@@ -510,11 +510,12 @@ $('.element').draggable({
     }
 });
 
-$("#publisher").droppable({
+$(".publisher-group > .group-body").droppable({
     tolerance : 'fit',
     accept: '.publisher',
     greedy : true,
     drop: function (event, ui) {
+        console.log($(this).attr("id"));
         ui.draggable.detach().prependTo($(this));
     },
     over : function() {
@@ -522,7 +523,7 @@ $("#publisher").droppable({
     }
 
 });
-$("#editor").droppable({
+$(".editor-group > .group-body").droppable({
     tolerance : 'fit',
     accept: '.editor',
     greedy : true,
@@ -534,7 +535,7 @@ $("#editor").droppable({
 
 });
 
-$('#operator').droppable({
+$('.operator-group > .group-body').droppable({
     tolerance : 'fit',
     accept: '.operator',
     greedy : true,
@@ -546,7 +547,7 @@ $('#operator').droppable({
 
 });
 
-$("#un-assign").droppable({
+$("#un-assigned").droppable({
     tolerance : 'fit',
     accept: '.element',
     greedy : true,
@@ -555,7 +556,8 @@ $("#un-assign").droppable({
     }
 
 });
-$('#publisher, #editor, #operator').sortable();
+
+$('#un-assign').sortable();
 
 var $editor = $("#editor");
 var editor;
@@ -566,4 +568,23 @@ $editor.find(".editor").each(function(index) {
 
 
 
+var Organization = (function() {
+    var groupContainer = $(".group-container");
+    render();
+    function render() {
+        Publisher.render(groups);
+    }
+    
+})();
+
+var Publisher = (function(){
+    
+    function render(groups) {
+        
+    }
+    
+    return {
+        render : render
+    };
+})();
     

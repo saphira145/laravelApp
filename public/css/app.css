@@ -360,40 +360,57 @@ label.required:after {
     display: block;
 }
 
-//#####################################################################################
-// Organization                                                                       #
-//#####################################################################################
 
-#publisher {
-    border:10px solid #BBBBFF;
+
+.publisher-group {
     height:auto;
     min-height:100px;
-    width:240px;
-    padding:20px;
+    border:1px solid #D0C40B;
 }
-#editor {
-    border:10px solid #BBFFBB;
+.group {
+    margin: 20px 10px 0;
+}
+.group > .group-heading {
+    height: 30px;
+    font-size: 12px;
+    line-height: 30px;
+    padding-left: 10px;
+}
+.group > .group-heading > a {
+    padding: 0 5px;
+    font-size: 14px;
+    color: #333;
+}
+.group > .group-body {
+    padding:20px 5px;
+}
+.publisher-group > .group-heading {
+    background: #FAEE2B;
+}
+.editor-group {
     height :auto;
     min-height:50px;
-    width: 220px;
-    padding:20px;
-    z-index: 1;
+    border:1px solid #5377FF;
 }
-#operator {
-    border:10px solid red;
+.editor-group > .group-heading {
+    background: #5377FF;
+}
+.operator-group {
     height :auto;
     min-height:100px;
-    width: 200px;
-    padding:20px;
-    z-index: 2;
+    border:1px solid #3DA919;
 }
-#un-assign {
+.operator-group > .group-heading {
+    background: #3DA919;
+}
+#un-assigned {
     font-size: 0;
     width:100%;
-    min-height: 100px;
-    height: auto;
-    position: relative;
-    margin-bottom: 20px;
+    height: 170px;
+    /*position: relative;*/
+    min-height: 170px;
+    border-bottom: 1px solid black;
+    overflow-y: scroll;
 }
 .element {
     font-size:0;
@@ -424,12 +441,11 @@ label.required:after {
 }
 
 .publisher span {
-    background: #FFAA00;
+    background: #FAEE2B;
 }
-
-.editor span{
-    background: #2BD1FA;
+.editor span {
+    background: #5377FF;
 }
-.operator span{
-    background: #2B57FA;
+.operator span {
+    background: #3DA919;
 }

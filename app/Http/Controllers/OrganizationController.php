@@ -9,15 +9,47 @@ use App\Http\Controllers\Controller;
 
 class OrganizationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
+    
+    public function index() {
         return view('organization.index');
     }
-
+    
+    /**
+     * AJAX get request
+     * @return type
+     */
+    public function getOrganization()
+    {
+        
+        $unassignedList = $this->organization->getUnassignedList();
+        $publisherGroups = $this->organization->getPublisherGroups();
+        
+        return response()->json([
+            'unassignedList' => $unassignedList,
+            'publisherGroups' => $publisherGroups
+        ]);
+    }
+    
+    /**
+     * AJAX Post request
+     * @return json string
+     */
+    public function updateJson() {
+        $groupId; // Get publisher group ID
+        $json; // New json
+        $this->organization->find($groupId)->update(['json' => $json]); // update json for group
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }

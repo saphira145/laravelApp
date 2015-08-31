@@ -176,6 +176,7 @@ class StudentsController extends Controller
         $offset = $request->input('offset');
         $limit = $request->input('limit');
         $fullname = $this->student->select(['fullname', 'id'])->skip($offset)->take($limit)->orderBy('updated_at', 'desc')->get();
+        
         return response()->json($fullname);
     }
     

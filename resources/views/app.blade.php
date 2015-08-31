@@ -41,6 +41,7 @@
         <script src="{{ URL::asset('js/jquery.sticky.js') }}"></script>
         <script src="{{ URL::asset('js/jquery-sortable.js') }}"></script>
         <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
+        <script src="{{ URL::asset('js/json.js') }}"></script>
         <script src="{{ URL::asset('js/js.js') }}"></script>
         
         
